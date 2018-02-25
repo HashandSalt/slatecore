@@ -6,7 +6,7 @@ This repository is part of the _Slate Framework_. _Slate_ is a responsive, moder
 
 ```sh
 $ cd your/project/folder
-$ yarn install slatecore -D
+$ yarn add slatecore -D
 ```
 
 For full documentation, visit www.slateengine.com.

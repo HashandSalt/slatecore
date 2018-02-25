@@ -1,0 +1,79 @@
+// ======================================================================
+// Slate Framework <hello@slateengine.com>
+// ======================================================================
+//
+// ======================================================================
+// Type Functions
+// ======================================================================
+
+// Type Setting
+// ======================================================================
+@function type-setting($base, $ratio, $level) {
+  $scale: $base;
+  @if($level < 0) {
+    $scale: $base / $ratio;
+    @while($level < -1) {
+      $scale: $scale / $ratio;
+      $level: $level + 1;
+    }
+  } @else {
+    @if($level > 0) {
+      $scale: $base * $ratio;
+      @while($level > 1) {
+        $scale: $scale * $ratio;
+        $level: $level - 1;
+      }
+    }
+  }
+  @return $scale;
+}
+
+
+// Type Scale
+// ======================================================================
+@function type-scale($level) {
+     @return map-get($type-scale, $level);
+}
+
+// Line Heights
+// ======================================================================
+@function line-height($level) {
+     @return map-get($line-heights, $level);
+}
+
+// Unitless lineheight function
+// ======================================================================
+@function unitless-line-height($global-base-font-size, $line-height: $global-base-font-size) {
+  @return $line-height / $global-base-font-size;
+}
+
+// Fontface
+// ======================================================================
+
+@function fontsrc($formats, $font-name, $font-family) {
+  // Return the list of `src` values, in order, that
+  // a good `@font-face` will need, including only
+  // those formats specified in the list `$formats`.
+  $result: ();
+  @if index($formats, eot) {
+    $eot-val: url('#{$custom-font-path}#{$font-name}.eot?#iefix') format('embedded-opentype');
+    $result: append($result, $eot-val, comma);
+  }
+  @if index($formats, woff2) {
+    $woff2-val: url('#{$custom-font-path}#{$font-name}.woff2') format('woff2');
+    $result: append($result, $woff2-val, comma);
+  }
+  @if index($formats, woff) {
+    $woff-val: url('#{$custom-font-path}#{$font-name}.woff') format('woff');
+    $result: append($result, $woff-val, comma);
+  }
+  @if index($formats, ttf) {
+    $ttf-val: url('#{$custom-font-path}#{$font-name}.ttf') format('truetype');
+    $result: append($result, $ttf-val, comma);
+  }
+  @if index($formats, svg) {
+    $svg-val: url('#{$custom-font-path}#{$font-name}.svg##{$font-family}') format('svg');
+    $result: append($result, $svg-val, comma);
+  }
+  @return $result;
+}

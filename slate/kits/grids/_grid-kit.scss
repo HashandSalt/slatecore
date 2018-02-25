@@ -1,0 +1,146 @@
+// ======================================================================
+// Slate Framework <hello@slateengine.com>
+// ======================================================================
+//
+// ======================================================================
+// Slate Grid
+// ======================================================================
+// Insipired by:
+// -------------------
+// Profound Grid: http://www.profoundgrid.com/
+// Semantic Grid: http://www.semantic.gs
+// Susy: http://susy.oddbird.net
+// Negative Grid: http://chrisplaneta.com/freebies/negativegrid-fluid-css-grid-by-chris-planeta/
+// ======================================================================
+/// Establish the grid-containing element. This is wrapper element for your columns.
+/// @example scss - Container
+/// .element {
+///     @include container;
+/// }
+/// @param {Variable} $grid-max-width [$center-container-max-width] - Maximum width that the containers will grow too.
+/// @param {Variable} $grid-center [$center-containers] - Center the container on the page without the need for additional markup
+/// @group Grid
+@mixin container($grid-max-width: $center-container-max-width, $grid-center: $center-containers, $c-margin: $container-margin) {
+  @include clearfix('mojo');
+  @if $grid-center {
+    @include rem(max-width, $grid-max-width);
+    margin: {
+      left: auto;
+      right: auto;
+    }
+    width: container-width($c-margin);
+  } @else {
+    width: container-width($c-margin);
+    margin-left: $c-margin;
+    margin-right: $c-margin;
+  }
+}
+/// Define columns.
+/// @example scss - Column
+/// .element {
+///     @include container;
+///     .col {@include column(6,3);}
+/// }
+/// @param {Variable} $columns-width - How many columns to span
+/// @param {Variable} $padding-columns - How many columns to push over by
+/// @group Grid
+@mixin column($columns-width, $padding-columns: null, $g-width: $gutter-width) {
+  float: left;
+  margin-right: -100%;
+  $width-perc: element-width($columns-width, $g-width);
+  width: $width-perc;
+  @if $padding-columns != null {
+    @include push($padding-columns, $g-width);
+  }
+}
+/// Push columns over.
+/// @example scss - Push
+/// .wrapper {
+///     @include container;
+///     .col {@include column(6); @include push(3);}
+/// }
+/// @param {Variable} $column-index - How many columns to push over by
+/// @group Grid
+@mixin push($column-index, $g-width: $gutter-width) {
+  $width-perc: 0;
+  @if $total-width == 100% {
+    $width-perc: $g-width + element-width($column-index, $g-width);
+  } @else {
+    // $width-perc: (column_width() + $g-width)*$column-index;
+    $width-perc: $g-width + element-width($column-index, $g-width);
+  }
+  margin-left: $width-perc;
+}
+// HELPER MIXINS
+/// Not really recommended, but if you like using a whole load of predefined classes, this is for you. It uses the column and container classes defined in the config.scss to generate CSS for a container, all columns as defined in $total-columns, and all matching push classes. Warning: This will add CSS to your project that you may or may not use.
+/// @example scss - Helper Classes
+///   @include generate_helper_classes;
+/// @example html - Helper Classes
+/// <div class='row'>
+/// <div class='col6 push3'>6 wide column pushed over by 3</div>
+/// </div>
+/// @param {Variable} $helper-break [medium] - The breakpoint at which the columns stack up into full width columns.
+/// @group Grid
+@mixin generate-helper-classes($helper-break: $bp-medium) {
+  // Helper Class: Container
+  .#{$class-container} {
+    @include container;
+  }
+  // Helper Class: Columns
+  @for $i from 1 through $total-columns {
+    .#{$class-column}#{$i} {
+      @include column(12);
+      margin-bottom: $column-bottom-spacing;
+      clear: both;
+    }
+  }
+  @include minbreak($helper-break) {
+    // Helper Class: Columns
+    @for $i from 1 through $total-columns {
+      .#{$class-column}#{$i} {
+        @include column($i);
+        clear: none;
+      }
+    }
+    // Helper Class: Horizontal Position
+    @for $i from 0 through $total-columns - 1 {
+      .#{$class-push}#{$i} {
+        @include push($i);
+        margin-bottom: $column-bottom-spacing;
+      }
+    }
+  }
+}
+/// Use this to push equal columns over with the same class, for example a page equal sized product thumbnails or portfolio of images.
+/// Just so you know, it's much easier and more flexible to do this with the Gridler mixin :)
+/// @example scss - Grid Positions
+/// .wrapper {
+///     @include container;
+///     .positioncol {@include column(3);}
+///     @include generate_grid_positions('positioncol', 3, 26px);
+/// }
+/// @example html - Grid Positions
+/// <div class='container'>
+/// <div class='positioncol'>A Pushed Column</div>
+/// <div class='positioncol'>A Pushed Column</div>
+/// <div class='positioncol'>A Pushed Column</div>
+/// <div class='positioncol'>A Pushed Column</div>
+/// </div>
+/// @param {Variable} $column-selector - The class name of the element to effect.
+/// @param {Variable} $element-width - Desired column width.
+/// @param {Variable} $ggsp [$column-bottom-spacing] - Space under the repeated columns.
+/// @group Grid
+@mixin generate-grid-positions($column-selector, $element-width, $ggsp: $column-bottom-spacing, $g-width: $gutter-width) {
+  $cols-per-row: floor($total-columns / $element-width);
+  @for $i from 1 through $cols-per-row {
+    #{$column-selector}:nth-child(#{$cols-per-row}n+#{$i}) {
+      @include push(($i - 1) * $element-width, $g-width);
+      @include rem(margin-bottom, $ggsp);
+      @if $i == 1 {
+        clear: both;
+      } @else {
+        clear: none;
+      }
+    }
+  }
+}

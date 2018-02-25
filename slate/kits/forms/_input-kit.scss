@@ -1,0 +1,649 @@
+// ======================================================================
+// Slate Framework <hello@slateengine.com>
+// ======================================================================
+//
+// ======================================================================
+// Inputs & Skins
+// ======================================================================
+/// [Setup input styles. These are controlled by a SASS map variable (`$input-default`) in the config files.Copy this variable and modify to make multiple styles. Simply pass the new variable as a parameter on the mixin.]
+/// @param  {Variable} $map-name [$input-default] Variable for the inputs style.
+/// @example scss - Basic Inputs
+///   @include inputs($map-variable);
+/// @author Hash&Salt
+/// @group Forms
+@mixin inputs($map-name: $input-default) {
+  input,
+  select,
+  textarea {
+    display: inline-block;
+    width: auto;
+  }
+
+  textarea {
+    @include rem(margin, map-get($map-name, margin));
+    @include rem(min-height, 150px);
+    position: relative;
+    overflow: auto;
+    outline: none;
+    line-height: map-get($map-name, line-height);
+    box-sizing: border-box;
+    resize: vertical;
+  }
+
+  [type='range'] {
+    @include rem(margin, map-get($map-name, margin));
+    @include rem(height, map-get($map-name, height));
+    width: map-get($map-name, width);
+  }
+
+  [type='checkbox'],
+  [type='radio'] {
+    margin: 0;
+    padding: 0;
+    vertical-align: middle;
+    display: inline;
+    height: auto;
+    width: auto;
+  }
+
+  [type='checkbox'],
+  [type='radio'] {
+    @include rem(margin, map-get($map-name, check-radio-margin));
+  }
+  @include inputs-all {
+    @include rem(height, map-get($map-name, height));
+    @include rem(margin, map-get($map-name, margin));
+    @include rem(font-size, map-get($map-name, font-size));
+    @include rem(padding, map-get($map-name, padding));
+    width: map-get($map-name, width);
+    font-family: map-get($map-name, font);
+    box-sizing: border-box;
+    @if map-get($map-name, use-borders) == true {
+      border-left: map-get($map-name, border-left);
+      border-right: map-get($map-name, border-right);
+      border-top: map-get($map-name, border-top);
+      border-bottom: map-get($map-name, border-bottom);
+    } @else {
+      border: 0;
+    }
+    background-color: map-get($map-name, background-color);
+    @if lightness(map-get($map-name, background-color)) < 60% {
+      // if background is dark...
+      color: map-get($map-name, textlight);
+    } @else {
+      // if background is light...
+      color: map-get($map-name, textdark);
+    }
+
+    &:focus {
+      @if map-get($map-name, use-borders) == true {
+        border-left: map-get($map-name, border-focus-left);
+        border-right: map-get($map-name, border-focus-right);
+        border-top: map-get($map-name, border-focus-top);
+        border-bottom: map-get($map-name, border-focus-bottom);
+      } @else {
+        border: 0;
+      }
+      background-color: map-get($map-name, background-color-focus);
+      outline: none;
+    }
+
+    &:disabled {
+      cursor: disabled;
+      background-color: map-get($map-name, background-color-disabled);
+      @if map-get($map-name, use-borders) == true {
+        border-left: map-get($map-name, border-disabled-left);
+        border-right: map-get($map-name, border-disabled-right);
+        border-top: map-get($map-name, border-disabled-top);
+        border-bottom: map-get($map-name, border-disabled-bottom);
+      } @else {
+        border: 0;
+      }
+      @if lightness(map-get($map-name, background-color-disabled)) < 60% {
+        // if background is dark...
+        color: map-get($map-name, textlight);
+      } @else {
+        // if background is light...
+        color: map-get($map-name, textdark);
+      }
+    }
+  }
+
+  [type='search'] {
+    -webkit-appearance: none;
+  }
+
+  [type='color'] {
+    @include rem(height, map-get($map-name, height));
+    @include rem(margin, map-get($map-name, margin));
+    @include rem(font-size, map-get($map-name, font-size));
+    width: map-get($map-name, width);
+    box-sizing: border-box;
+    display: block;
+    background-color: transparent;
+    outline: none;
+    cursor: pointer;
+    @if map-get($map-name, use-borders) == true {
+      border-left: map-get($map-name, border-left);
+      border-right: map-get($map-name, border-right);
+      border-top: map-get($map-name, border-top);
+      border-bottom: map-get($map-name, border-bottom);
+    } @else {
+      border: 0;
+    }
+
+    &:focus {
+      @if map-get($map-name, use-borders) == true {
+        border-left: map-get($map-name, border-focus-left);
+        border-right: map-get($map-name, border-focus-right);
+        border-top: map-get($map-name, border-focus-top);
+        border-bottom: map-get($map-name, border-focus-bottom);
+      } @else {
+        border: 0;
+      }
+    }
+
+    &:disabled {
+      @if map-get($map-name, use-borders) == true {
+        border-left: map-get($map-name, border-disabled-left);
+        border-right: map-get($map-name, border-disabled-right);
+        border-top: map-get($map-name, border-disabled-top);
+        border-bottom: map-get($map-name, border-disabled-bottom);
+      } @else {
+        border: 0;
+      }
+    }
+  }
+}
+/// Setup select styles. These are controlled by a SASS map variable (`$select-default`) in the config files.
+/// Copy this variable and modify to make multiple styles. Simply pass the new variable as a parameter on
+/// the mixin.
+/// @param  {Variable} $map-name [$select-default] [Skin to use for the select element]
+/// @example scss - Basic Select
+/// .form {
+///     @include select($map-variable);
+/// }
+/// @author Hash&Salt
+/// @group Forms
+@mixin select($map-name: $select-default) {
+  select {
+    // Common
+    @include rem(height, map-get($map-name, height));
+    @include rem(width, map-get($map-name, width));
+    @include rem(margin, map-get($map-name, margin));
+    @include rem(font-size, map-get($map-name, font-size));
+    @include rem(padding, map-get($map-name, padding));
+    background-color: map-get($map-name, background-color);
+    font-family: map-get($map-name, font);
+    border-radius: map-get($map-name, radius);
+    line-height: normal;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+
+    &::-ms-expand {
+      display: none;
+    }
+
+    &[multiple] {
+      height: auto;
+    }
+    // Triangle
+    @if map-get($map-name, triangle-color) != transparent {
+      background-size: map-get($map-name, triangle-size);
+      background-position: map-get($map-name, triangle-position);
+      background-origin: content-box;
+      background-repeat: no-repeat;
+      @if lightness(map-get($map-name, background-color)) < 60% {
+        background-image: svg-url-with-replaced-fill(map-get($map-name, arrow), '#000000', map-get($map-name, triangle-color-light));
+      } @else {
+        background-image: svg-url-with-replaced-fill(map-get($map-name, arrow), '#000000', map-get($map-name, triangle-color-dark));
+      }
+    }
+    @if map-get($map-name, use-borders) == true {
+      border-left: map-get($map-name, border-left);
+      border-right: map-get($map-name, border-right);
+      border-top: map-get($map-name, border-top);
+      border-bottom: map-get($map-name, border-bottom);
+    } @else {
+      border: 0;
+    }
+    @if lightness(map-get($map-name, background-color)) < 60% {
+      color: map-get($map-name, textlight);
+    } @else {
+      color: map-get($map-name, textdark);
+    }
+
+    &:focus {
+      outline: 0;
+      background-color: map-get($map-name, background-color-focus);
+      @if map-get($map-name, use-borders) == true {
+        border-left: map-get($map-name, border-focus-left);
+        border-right: map-get($map-name, border-focus-right);
+        border-top: map-get($map-name, border-focus-top);
+        border-bottom: map-get($map-name, border-focus-bottom);
+      } @else {
+        border: 0;
+      }
+      @if lightness(map-get($map-name, background-color)) < 60% {
+        color: map-get($map-name, textlight);
+      } @else {
+        color: map-get($map-name, textdark);
+      }
+    }
+
+    &:disabled {
+      background-color: map-get($map-name, background-color-disabled);
+      @if map-get($map-name, use-borders) == true {
+        border-left: map-get($map-name, border-disabled-left);
+        border-right: map-get($map-name, border-disabled-right);
+        border-top: map-get($map-name, border-disabled-top);
+        border-bottom: map-get($map-name, border-disabled-bottom);
+      } @else {
+        border: 0;
+      }
+      @if lightness(map-get($map-name, background-color-disabled)) < 60% {
+        color: map-get($map-name, textlight);
+      } @else {
+        color: map-get($map-name, textdark);
+      }
+    }
+  }
+}
+/// Append or prepend an icon / button / link to an input or select box. These are controlled by a SASS map variable (`$select-default`) in the config files.
+/// Copy this variable and modify to make multiple styles. Simply pass the new variable as a parameter on
+/// the mixin.
+/// @example scss - Basic Select
+/// .form {
+///     @include select($map-variable);
+/// }
+/// @example html - Addon HTML
+/// <div class='form-addon addon-right'>
+///   <select class='addon-field' name='select'>
+///     <option value='About'>About</option>
+///   </select>
+/// <div class='addon-button'><button type='button'>Go!</button></div>
+/// </div>
+/// @param {Variable} $map-name [$input-default] - SASS map variable for the select element style.
+/// @author Hash&Salt
+/// @group Forms
+@mixin addons ($map-name: $addon-default) {
+  // Addon Wrapper
+  .#{map-get($map-name, wrapper)} {
+    @include rem(margin, map-get($map-name, spacing));
+    @include rem(height, map-get($map-name, height));
+    display: table;
+    border-collapse: separate;
+    width: 100%;
+  }
+
+  .#{map-get($map-name, icon)} {
+    @include rem(height, map-get($map-name, height));
+    @include rem(font-size, map-get($map-name, font-size));
+    @include rem(padding, map-get($map-name, padding));
+    display: table-cell;
+    line-height: 1;
+    width: auto;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: middle;
+    font-weight: $semibold;
+    background-color: map-get($map-name, addon-background-color);
+    @if lightness(map-get($map-name, addon-background-color)) < 60% {
+      color: map-get($map-name, textlight);
+    } @else {
+      color: map-get($map-name, textdark);
+    }
+    @if map-get($map-name, use-borders) == true {
+      border: map-get($map-name, border);
+    } @else {
+      border: 0;
+    }
+  }
+
+  .#{map-get($map-name, button)} {
+    display: table-cell;
+    white-space: nowrap;
+    vertical-align: middle;
+
+    [type='reset'],
+    [type='submit'],
+    span,
+    button {
+      @include rem(font-size, map-get($map-name, font-size));
+      @include rem(padding, map-get($map-name, padding));
+      @include rem(height, map-get($map-name, height));
+      @include rem(border-radius, map-get($map-name, radius));
+      background-color: map-get($map-name, addon-background-color);
+      // Text Color
+      @if lightness(map-get($map-name, addon-background-color)) < 60% {
+        color: map-get($map-name, textlight);
+      } @else {
+        color: map-get($map-name, textdark);
+      }
+      font-weight: map-get($map-name, font-weight);
+      font-family: map-get($map-name, font);
+      @if map-get($map-name, use-borders) == true {
+        border: map-get($map-name, border);
+      } @else {
+        border: 0;
+      }
+      line-height: 1;
+      text-align: center;
+      display: block;
+      cursor: pointer;
+      width: 100%;
+
+      &:focus {
+        background: map-get($map-name, addon-focus);
+        outline: none;
+        // Text Color
+        @if lightness(map-get($map-name, addon-focus)) < 60% {
+          color: map-get($map-name, textlight);
+        } @else {
+          color: map-get($map-name, textdark);
+        }
+      }
+
+      &:hover {
+        background: map-get($map-name, addon-hover);
+        // Text Color
+        @if lightness(map-get($map-name, addon-hover)) < 60% {
+          color: map-get($map-name, textlight);
+        } @else {
+          color: map-get($map-name, textdark);
+        }
+      }
+
+      &:active {
+        background: map-get($map-name, addon-active);
+        // Text Color
+        @if lightness(map-get($map-name, addon-active)) < 60% {
+          color: map-get($map-name, textlight);
+        } @else {
+          color: map-get($map-name, textdark);
+        }
+      }
+
+      &:disabled {
+        background: map-get($map-name, addon-disabled);
+        @if map-get($map-name, use-borders) == true {
+          border: map-get($map-name, border-disabled);
+        } @else {
+          border: 0;
+        }
+        @if lightness(map-get($map-name, addon-disabled)) < 60% {
+          // if background is dark...
+          color: map-get($map-name, textlight);
+        } @else {
+          // if background is light...
+          color: map-get($map-name, textdark);
+        }
+      }
+    }
+
+    div,
+    span {
+      @include rem(line-height, map-get($map-name, line-height));
+      cursor: auto;
+      display: block;
+    }
+  }
+  // Inputs inside Addons
+  @include inputs-all {
+    &.#{map-get($map-name, field)} {
+      margin: 0;
+      display: table-cell;
+      position: relative;
+      z-index: 2;
+      width: 100%;
+      float: left;
+      @if map-get($map-name, use-borders) == true {
+        border: map-get($map-name, border);
+      } @else {
+        border: 0;
+      }
+
+      &:focus {
+        @if map-get($map-name, use-borders) == true {
+          border: map-get($map-name, border-focus);
+        } @else {
+          border: 0;
+        }
+        background-color: map-get($map-name, input-focus);
+        color: map-get($map-name, input-focus-color);
+      }
+    }
+  }
+  @include select(map-get($map-name, selectskin));
+
+  .#{map-get($map-name, field)} {
+    margin: 0;
+    display: table-cell;
+    position: relative;
+    z-index: 2;
+    width: 100%;
+    float: left;
+    @if map-get($map-name, use-borders) == true {
+      border: map-get($map-name, border);
+    } @else {
+      border: 0;
+    }
+
+    &:focus {
+      @if map-get($map-name, use-borders) == true {
+        border: map-get($map-name, border-focus);
+      } @else {
+        border: 0;
+      }
+      color: map-get($map-name, input-focus-color);
+    }
+  }
+  // Kill Borders next to buttons
+  @if map-get($map-name, use-borders) == true {
+    .#{map-get($map-name, both)},
+    .#{map-get($map-name, left)},
+    .#{map-get($map-name, right)} {
+      .#{map-get($map-name, button)}:first-child {
+        [type='reset'],
+        [type='submit'],
+        span,
+        button,
+        div {
+          border-right: 0;
+        }
+      }
+
+      .#{map-get($map-name, button)}:last-child {
+        [type='reset'],
+        [type='submit'],
+        span,
+        button,
+        div {
+          border-left: 0;
+        }
+      }
+
+      .#{map-get($map-name, icon)}:first-child {
+        border-right: 0;
+      }
+
+      .#{map-get($map-name, icon)}:last-child {
+        border-left: 0;
+      }
+    }
+  }
+}
+// Custom radios
+// ======================================================================
+@mixin checkradio($map-name: $checkradio-default) {
+  label {
+    @include rem(padding-left, map-get($map-name, label-h-align));
+    @include rem(margin-bottom, map-get($map-name, spacing));
+    display: inline-block;
+    cursor: pointer;
+    position: relative;
+
+    &::before {
+      @include rem(width, map-get($map-name, width));
+      @include rem(height, map-get($map-name, height));
+      @include rem(bottom, map-get($map-name, input-v-align));
+      content: '';
+      color: map-get($map-name, selected-color);
+      display: inline-block;
+      position: absolute;
+      left: 0;
+      background-color: map-get($map-name, background-color);
+      @if map-get($map-name, use-borders) == true {
+        border: map-get($map-name, border);
+      } @else {
+        border: 0;
+      }
+    }
+  }
+
+  [type='checkbox'],
+  [type='radio'] {
+    position: absolute;
+    left: -99999px;
+
+    + label {
+      @include rem(margin-bottom, map-get($map-name, spacing));
+      margin-left: 0;
+    }
+    // checked
+    &:checked {
+      + label {
+        &::before {
+          content: '';
+          background-image: svg-url-with-replaced-fill(map-get($map-name, checkicon), '#000000', map-get($map-name, selected-color));
+          background-size: map-get($map-name, checkicon-size);
+          background-repeat: no-repeat;
+          background-position: center center;
+          @if map-get($map-name, use-borders) == true {
+            border: map-get($map-name, border-checked);
+          } @else {
+            border: 0;
+          }
+        }
+      }
+    }
+    // focus
+    &:focus {
+      + label {
+        &::before {
+          @if map-get($map-name, use-borders) == true {
+            border: map-get($map-name, border-focus);
+          } @else {
+            border: 0;
+          }
+          color: map-get($map-name, selected-color);
+          background-color: map-get($map-name, background-color-focus);
+        }
+      }
+      // focus + checked
+      &:checked {
+        + label {
+          &::before {
+            @if map-get($map-name, use-borders) == true {
+              border: map-get($map-name, border-focus-checked);
+            } @else {
+              border: 0;
+            }
+            color: map-get($map-name, selected-color);
+            background-color: map-get($map-name, background-color-focus-checked);
+          }
+        }
+      }
+    }
+    // hover
+    &:hover {
+      + label {
+        &::before {
+          color: map-get($map-name, selected-color);
+          background-color: map-get($map-name, background-color-hover);
+          @if map-get($map-name, use-borders) == true {
+            border: map-get($map-name, border-hover);
+          } @else {
+            border: 0;
+          }
+        }
+      }
+      // hover + checked
+      &:checked {
+        + label {
+          &::before {
+            color: map-get($map-name, selected-color);
+            background-color: map-get($map-name, background-color-hover-checked);
+            @if map-get($map-name, use-borders) == true {
+              border: map-get($map-name, border-hover-checked);
+            } @else {
+              border: 0;
+            }
+          }
+        }
+      }
+    }
+  }
+
+  [type='radio'] {
+    + label {
+      &::before {
+        border-radius: map-get($map-name, radio-radius);
+      }
+    }
+
+    &:checked {
+      + label {
+        &::before {
+          content: '';
+          background: svg-url-with-replaced-fill(map-get($map-name, radioicon), '#000000', map-get($map-name, selected-color));
+          background-size: map-get($map-name, radioicon-size);
+          background-repeat: no-repeat;
+          background-position: center center;
+        }
+      }
+    }
+  }
+}
+/// Style all inputs at once except select and textareas
+/// @author Hash&Salt
+/// @group Forms
+@mixin inputs-all {
+  [type='date'],
+  [type='datetime'],
+  [type='datetime-local'],
+  [type='email'],
+  [type='month'],
+  [type='number'],
+  [type='password'],
+  [type='search'],
+  [type='tel'],
+  [type='text'],
+  [type='time'],
+  [type='url'],
+  [type='week'],
+  textarea {
+    @content;
+  }
+}
+/// A quick way to add all of the form mixins (baseforn, inputs, addons, select, validation) in one go based on settings in the `$form-skin-default` SASS map
+/// @param  {Variable} $map-name [$form-skin-default] [Config variable to use for forms]
+/// @author Hash&Salt
+/// @group Forms
+@mixin form-complete($map-name: $form-skin-default) {
+  @if map-deep-get($map-name, 'components', 'baseform') == true {
+    @include form;
+  }
+  @if map-deep-get($map-name, 'components', 'inputs') == true {
+    @include inputs(map-deep-get($map-name, 'skins', 'inputs'));
+  }
+  @if map-deep-get($map-name, 'components', 'select') == true {
+    @include select(map-deep-get($map-name, 'skins', 'select'));
+  }
+  @if map-deep-get($map-name, 'components', 'addons') == true {
+    @include addons(map-deep-get($map-name, 'skins', 'addons'));
+  }
+  @if map-deep-get($map-name, 'components', 'validation') == true {
+    @include validation(map-deep-get($map-name, 'skins', 'validation'));
+  }
+}

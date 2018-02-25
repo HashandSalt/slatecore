@@ -1,0 +1,181 @@
+// ======================================================================
+// Slate Framework <hello@slateengine.com>
+// ======================================================================
+//
+// ======================================================================
+// Helpers
+// ======================================================================
+
+/// Fix stupid box model in stupid browsers.
+/// @example scss
+/// html {
+///     @include fix-box-model;
+/// }
+/// @group Helpers
+@mixin fix-box-model {
+    box-sizing: border-box;
+
+    *, *:before, *:after {
+        box-sizing: inherit;
+    }
+}
+
+/// Multiple Clearfixes in one mixin! Use modern, PIE or Mojo Clearfixes, depending on your needs.
+/// @example scss - Clearfix
+/// .yourelement {
+///   @include clearfix(modern);
+///   @include clearfix(pie);
+///   @include clearfix(mojo);
+///      ...
+/// }
+/// @link http://www.positioniseverything.net/easyclearing.html
+/// @link http://cssmojo.com/latest_new_clearfix_so_far/
+/// @param {string} $fix-type [modern] - Desired CSS property
+/// @group Clearfix
+@mixin clearfix($fix-type: "modern") {
+
+    // Moden clearfix.
+    @if $fix-type == "modern" {
+        overflow: hidden;
+    }
+    // Position is everything clearfix clearfix.
+    @if $fix-type == "pie" {
+        *zoom: 1;
+
+        &:after {
+            content: "\0020";
+            display: block;
+            height: 0;
+            clear: both;
+            overflow: hidden;
+            visibility: hidden;
+        }
+    }
+    // Mojo Clearfix.
+    @if $fix-type == "mojo" {
+        &:after {
+            content: "";
+            display: table;
+            clear: both;
+        }
+    }
+}
+
+
+/// iFrame / Object / Emded helper to make those elements responsive. Works a treat on things like google maps and youtube videos.
+/// Apply this to the PARENT element, not the iframe.
+/// @example scss - IOE
+/// .yourelement {
+///   @include ioe;
+///      ...
+/// }
+/// @group Media
+@mixin ioe {
+  position: relative;
+  padding-bottom: 56.25%;
+  padding-top: 30px;
+  height: 0;
+  overflow: hidden;
+
+  embed,
+  iframe,
+  object,
+  video {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border: 0;
+  }
+}
+
+// Min-Width Media Query Mixin
+/// @example scss
+///     @include break(sm) {
+/// display: block;
+/// }
+/// @group Helpers
+@mixin minbreak($size: $bp-medium) {
+  @media screen and (min-width: rem-convert(px, $size)) {
+    @content;
+  }
+}
+
+/// Max-Width Media Query Mixin
+/// @example scss
+///     @include break(sm) {
+/// display: block;
+/// }
+/// @group Helpers
+@mixin maxbreak($size: $bp-medium) {
+  @media screen and (max-width: rem-convert(px, $size)) {
+    @content;
+  }
+}
+
+/// Retina Media Query Mixin
+/// @example scss
+///     @include retina {
+///     ...
+/// }
+/// @group Helpers
+@mixin retina {
+  @media only screen and (-webkit-min-device-pixel-ratio: 2), only screen and (min--moz-device-pixel-ratio: 2), only screen and (-o-min-device-pixel-ratio: 2 / 1), only screen and (min-device-pixel-ratio: 2), only screen and (min-resolution: 192dpi), only screen and (min-resolution: 2dppx) {
+    @content;
+  }
+}
+
+/// Print Mixin
+/// @example scss
+///     @include print {
+///     ...
+/// }
+/// @group Helpers
+@mixin print {
+  @media print {
+    @content;
+  }
+}
+
+/// REM Calculator. Generate REM sizes from a pixel value on almost any css property
+/// @example scss - Free Type
+///     .yourelement {
+///       @include rem(margin-top, 16px);
+///     }
+///     .yourelement {
+///       @include rem(margin, 16px 20px 16px 20px);
+///     }
+/// @param {string} $properties - Desired CSS property
+/// @param {number} $values - Desired values to convert
+/// @group Helpers
+@mixin rem($properties, $values...) {
+    @if type-of($properties) == "map" {
+        @each $property in map-keys($properties) {
+             @include rem($property, map-get($properties, $property));
+        }
+    }
+    @else {
+         @each $property in $properties{
+            @if $rem-fallback or $rem-px-only {
+                #{$property}: rem-convert(px, $values...);
+            }
+            @if not $rem-px-only {
+                #{$property}: rem-convert(rem, $values...);
+            }
+        }
+    }
+}
+
+/// SVG. Use SVG graphic from a variable and optionally change its
+/// @example scss - SVG Icon Color
+///     .yourelement {
+///       @include svgbg($youriconvar);
+///     }
+/// @param {string} $icon - Variable with svg as a string
+/// @param {string} $newcolor - Variable with svg as a string
+/// @param {string} $oldcolor - Icons original color to replace
+/// @group Helpers
+@mixin svgbg($icon, $newcolor: $svg-icon-replace-color, $oldcolor: $svg-icon-orginal-color) {
+  background-image: svg-url-with-replaced-fill($examplesvg, $oldcolor, $newcolor);
+}

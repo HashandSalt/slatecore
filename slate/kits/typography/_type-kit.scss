@@ -1,0 +1,175 @@
+// ======================================================================
+// Slate Framework <hello@slateengine.com>
+// ======================================================================
+//
+// ======================================================================
+// Type Kit
+// ======================================================================
+
+$modular-scale-alpha: type-setting($global-base-font-size, $type-ratio, $modular-step-alpha);
+$modular-scale-beta: type-setting($global-base-font-size, $type-ratio, $modular-step-beta);
+$modular-scale-gamma: type-setting($global-base-font-size, $type-ratio, $modular-step-gamma);
+$modular-scale-delta: type-setting($global-base-font-size, $type-ratio, $modular-step-delta);
+$modular-scale-epsilon: type-setting($global-base-font-size, $type-ratio, $modular-step-epsilon);
+$modular-scale-zeta: type-setting($global-base-font-size, $type-ratio, $modular-step-zeta);
+$modular-scale-eta: type-setting($global-base-font-size, $type-ratio, $modular-step-eta);
+$modular-scale-theta: type-setting($global-base-font-size, $type-ratio, $modular-step-theta);
+$modular-scale-iota: type-setting($global-base-font-size, $type-ratio, $modular-step-iota);
+
+$lineheight-alpha: ($global-base-font-size * $global-line-height) * 2;
+$lineheight-beta: ($global-base-font-size * $global-line-height) * 2;
+$lineheight-gamma: ($global-base-font-size * $global-line-height) * 2;
+$lineheight-delta: ($global-base-font-size * $global-line-height) * 2;
+$lineheight-epsilon: ($global-base-font-size * $global-line-height) * 2;
+$lineheight-zeta: $global-base-font-size * $global-line-height;
+$lineheight-eta: $global-line-height;
+$lineheight-theta: $global-line-height;
+$lineheight-iota: $global-line-height;
+
+// Map of modular font scales
+// @group Typography
+$type-scale: ( alpha: $modular-scale-alpha, beta: $modular-scale-beta, gamma: $modular-scale-gamma, delta: $modular-scale-delta, epsilon: $modular-scale-epsilon, zeta: $modular-scale-zeta, eta: $modular-scale-eta, theta: $modular-scale-theta, iota: $modular-scale-iota );
+
+// Map of line heights
+// @group Typography
+$line-heights: ( alpha: $lineheight-alpha, beta: $lineheight-beta, gamma: $lineheight-gamma, delta: $lineheight-delta, epsilon: $lineheight-epsilon, zeta: $lineheight-zeta, eta: $lineheight-eta, theta: $lineheight-theta, iota: $lineheight-iota );
+
+/// Modular type mixin lets you easily generate a font size on an element with lineheights and margins based on a modular scale.
+/// @example scss - Modular Type
+///     p {
+///       @include type-modular(gamma, 24px, 24px, 24px, true )
+///     }
+/// @param {string} $type-scale - Desired modular scale
+/// @param {string} $type-scale-vtspace - Desired margin above element (optional)
+/// @param {string} $type-scale-vbspace - Desired margin below element (optional)
+/// @param {string} $tflh - Overide line-height. Use pixel values, they will be converted. (optional)
+/// @param {string} $tfuline - Generate unitless lineheights. (optional)
+/// @group Typography
+
+@mixin type-modular($type-scale, $type-scale-vtspace: $global-base-font-size * $global-line-height, $type-scale-vbspace: $global-base-font-size * $global-line-height, $mlh: line-height($type-scale), $muline: $unitless-lineheight) {
+  @include rem(font-size, type-scale($type-scale));
+  @if $muline == true {
+    @include unitless-line-height(type-scale($type-scale), $mlh);
+  } @else {
+    @include rem(line-height, $mlh);
+  }
+  @include rem(margin-top, $type-scale-vtspace);
+  @include rem(margin-bottom, $type-scale-vbspace);
+}
+
+/// Free type mixin lets you easily generate a font size on an element with lineheights and margins based on a pixel value.
+/// @example scss - Free Type
+///     p {
+///       @include type-free(16px, 24px, 24px, 24px, true)
+///     }
+/// @param {string} $type-size - Desired font size in pixels
+/// @param {string} $type-scale-vtspace - Desired margin above element (optional)
+/// @param {string} $type-scale-vbspace - Desired margin below element (optional)
+/// @param {string} $tflh - Overide line-height. Use pixel values, they will be converted. (optional)
+/// @param {string} $tfuline - Generate unitless lineheights. (optional)
+/// @group Typography
+
+@mixin type-free($type-size, $type-scale-vtspace, $type-scale-vbspace, $tflh: $global-line-height, $tfuline: $unitless-lineheight) {
+  @include rem(font-size, $type-size);
+  @if $tfuline == true {
+    @include unitless-line-height($type-size, $tflh);
+  } @else {
+    @include rem(line-height, $tflh);
+  }
+  @include rem(margin-top, $type-scale-vtspace);
+  @include rem(margin-bottom, $type-scale-vbspace);
+}
+
+/// Font face mixin lets you very easily add custom fonts in multiple formats.
+/// @example scss - Fontface
+///     @include fontface("IM FELL English", "IMFeENrm28P", $extrabold, normal, $formats: eot woff woff2 ttf svg);
+///
+///     .custom-font {
+///       font-family: "IM FELL English";
+///     }
+/// @param {string} $font-family - The fonts name eg "IM FELL English"
+/// @param {string} $font-name - The fonts filename without the extension "IMFeENrm28P"
+/// @param {string} $weight [normal] - Font weight
+/// @param {string} $style [normal] - Font style
+/// @param {string} $formats - List of font file types to use
+/// @group Typography
+
+@mixin fontface($font-family, $font-name, $weight: normal, $style: normal, $formats: eot woff ttf svg) {
+  @if index('italic' 'oblique', $weight) {
+    $style: $weight;
+    $weight: normal;
+  }
+  @font-face {
+    font-family: $font-family;
+    font-weight: $weight;
+    font-style: $style;
+    @if index($formats, eot) {
+      src: url('#{$custom-font-path}#{$font-name}.eot');
+    }
+    src: fontsrc($formats, $font-name, $font-family);
+  }
+}
+
+/// Responsive Type
+/// @example scss - Free Type
+///     :root {
+///       @include responsive-type;
+///     }
+/// @group Type Kit
+
+@mixin responsive-type {
+  @if $responsive-text == true {
+    @include rem-baseline($rt-bp-base);
+    @media only screen and (min-width: $bp-tiny) {
+      @include rem-baseline($rt-bp-tiny);
+    }
+    @media only screen and (min-width: $bp-xsmall) {
+      @include rem-baseline($rt-bp-xsmall);
+    }
+    @media only screen and (min-width: $bp-small) {
+      @include rem-baseline($rt-bp-small);
+    }
+    @media only screen and (min-width: $bp-medium) {
+      @include rem-baseline($rt-bp-medium);
+    }
+    @media only screen and (min-width: $bp-large) {
+      @include rem-baseline($rt-bp-large);
+    }
+    @media only screen and (min-width: $bp-xl) {
+      @include rem-baseline($rt-bp-xl);
+    }
+  }
+}
+
+/// REM Baseline
+/// @example scss - Free Type
+///     .yourelement {
+///       @include rem-baseline;
+///     }
+/// @param {number} $zoom - zoom amount
+/// @group Type Kit
+@mixin rem-baseline($zoom: 100%) {
+  font-size: ($zoom / 16px) * $global-base-font-size;
+}
+
+// unitless line height mixin
+@mixin unitless-line-height($font-size, $line-height: $global-base-font-size) {
+  line-height: $line-height / $font-size;
+}
+
+/// Draw Baselines to help with setting typography.
+/// @example scss - lines
+///     .yourelement {
+///       @include lines($global-base-font-size, $global-line-height);
+///     }
+/// @param {number} $line-font-size - Overide the font size used to calculate the lines
+/// @param {number} $line-line-height - Overide the lineheight used to calculate the lines
+/// @group Type Kit
+@mixin baseline($line-font-size: $global-base-font-size, $line-line-height: $global-line-height) {
+  @if($type-debug == true) {
+    @include rem(background-size, ($line-font-size * $line-line-height) ($line-font-size * $line-line-height));
+    background-image: linear-gradient(to bottom, hsla(200, 100%, 50%, .3) 1px, transparent 1px);
+    background-position: left -1px;
+    background-repeat: repeat;
+  }
+}

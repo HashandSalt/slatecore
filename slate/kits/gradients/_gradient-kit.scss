@@ -1,0 +1,134 @@
+// ======================================================================
+// Slate Framework <hello@slateengine.com>
+// ======================================================================
+//
+// ======================================================================
+// Gradient Kit
+// ======================================================================
+
+/// Horizontal Gradient mixin lets you quickly make horizontal gradients on an element.
+/// @example scss - Default Gradient using default gradient colors
+/// .element {
+///     @mixin gradient-horizontal;
+/// }
+/// .element {
+///     @mixin gradient-horizontal(#eee, #222, 0%, 90%);
+/// }
+/// @param {Variable} $start-color [$gradient-start] - Gradient Start Color
+/// @param {Variable} $end-color [$gradient-end] - Gradient End Color
+/// @param {Variable} $start-percent [0%] - Gradient Start Position Percentage
+/// @param {Variable} $end-percent [100%] - Gradient End Position Percentage
+/// @author Hash&Salt
+/// @group Gradients
+@mixin gradient-horizontal($start-color: $gradient-start, $end-color: $gradient-end, $start-percent: 0%, $end-percent: 100%) {
+  background-image: linear-gradient(to right, $start-color $start-percent, $end-color $end-percent);
+  background-repeat: repeat-x;
+}
+
+/// Vertical Gradient mixin lets you quickly make vertical gradients on an element.
+/// @example scss - Default Gradient using default gradient colors
+/// .element {
+///     @mixin gradient-vertical;
+/// }
+/// .element {
+///     @mixin gradient-vertical(#eee, #222, 0%, 90%);
+/// }
+/// @param {Variable} $start-color [$gradient-start] - Gradient Start Color
+/// @param {Variable} $end-color [$gradient-end] - Gradient End Color
+/// @param {Variable} $start-percent [0%] - Gradient Start Position Percentage
+/// @param {Variable} $end-percent [100%] - Gradient End Position Percentage
+/// @author Hash&Salt
+/// @group Gradients
+@mixin gradient-vertical($start-color: $gradient-start, $end-color: $gradient-end, $start-percent: 0%, $end-percent: 100%) {
+  background-image: linear-gradient(to bottom, $start-color $start-percent, $end-color $end-percent);
+  background-repeat: repeat-x;
+}
+
+/// Directional Gradient mixin lets you quickly make directional gradients on an element.
+/// @example scss - Default Gradient using default gradient color map
+/// .element {
+///     @mixin gradient-directional;
+/// }
+/// .element {
+///     @mixin gradient-directional(#eee, #222, 45deg);
+/// }
+/// @param {Variable} $start-color [$gradient-start] - Gradient Start Color
+/// @param {Variable} $end-color [$gradient-end] - Gradient End Color
+/// @param {Variable} $deg [45deg] - Gradient Start Position Percentage
+/// @author Hash&Salt
+/// @group Gradients
+@mixin gradient-directional($start-color: $gradient-start, $end-color: $gradient-end, $deg: 45deg) {
+  background-repeat: no-repeat;
+  background-image: linear-gradient($deg, $start-color, $end-color);
+}
+
+/// Radial Gradient mixin lets you quickly make radial gradients on an element.
+/// @example scss - Default Gradient using default gradient colors
+/// .element {
+///     @mixin gradient-radial;
+/// }
+/// .element {
+///     @mixin gradient-radial(#eee, #222);
+/// }
+/// @param {Variable} $start-color [$gradient-start] - Gradient Start Color
+/// @param {Variable} $end-color [$gradient-end] - Gradient End Color
+/// @author Hash&Salt
+/// @group Gradients
+@mixin gradient-radial($inner-color: $gradient-start, $outer-color: $gradient-end) {
+  background-image: radial-gradient(circle, $inner-color, $outer-color);
+  background-repeat: no-repeat;
+}
+
+/// Striped Gradient mixin lets you quickly make striped gradients on an element.
+/// @example scss - Striped Gradient using default gradient colors
+/// .element {
+///     @mixin gradient-striped;
+/// }
+/// .element {
+///     @mixin gradient-striped(#222, 45deg);
+/// }
+/// @param {Variable} $color [$gradient-start] - Stripe Color
+/// @param {Variable} $angle [45deg] - Stripe Angle
+/// @author Hash&Salt
+/// @group Gradients
+@mixin gradient-striped($color: $gradient-start, $angle: 45deg) {
+  background-image: linear-gradient($angle, $color 25%, transparent 25%, transparent 50%, $color 50%, $color 75%, transparent 75%, transparent);
+}
+
+/// Horizontal Gradient Three Colors mixin lets you quickly make horizontal gradients on an element usint three colors.
+/// @example scss - Default Gradient using default gradient colors
+/// .element {
+///     @mixin gradient-horizontal-three-colors;
+/// }
+/// .element {
+///     @mixin gradient-horizontal-three-colors(#eee, #666, 50%, #222, 90%);
+/// }
+/// @param {Variable} $start-color [$gradient-start] - Gradient Start Color
+/// @param {Variable} $mid-color [$gradient-middle] - Gradient Middle Color
+/// @param {Variable} $color-stop [50%] - Middle Color stop point
+/// @param {Variable} $end-color [$gradient-end] - Gradient End Color
+/// @author Hash&Salt
+/// @group Gradients
+@mixin gradient-horizontal-three-colors($start-color: $gradient-end, $mid-color: $gradient-middle, $color-stop: 50%, $end-color: $gradient-end) {
+  background-image: linear-gradient(to right, $start-color, $mid-color $color-stop, $end-color);
+  background-repeat: no-repeat;
+}
+
+/// Vertical Gradient Three Colors mixin lets you quickly make veritcal gradients on an element usint three colors.
+/// @example scss - Default Gradient using default gradient colors
+/// .element {
+///     @mixin gradient-vertical-three-colors;
+/// }
+/// .element {
+///     @mixin gradient-vertical-three-colors(#eee, #666, 50%, #222, 90%);
+/// }
+/// @param {Variable} $start-color [$gradient-start] - Gradient Start Color
+/// @param {Variable} $mid-color [$gradient-middle] - Gradient Middle Color
+/// @param {Variable} $color-stop [50%] - Middle Color stop point
+/// @param {Variable} $end-color [$gradient-end] - Gradient End Color
+/// @author Hash&Salt
+/// @group Gradients
+@mixin gradient-vertical-three-colors($start-color: $gradient-end, $mid-color: $gradient-middle, $color-stop: 50%, $end-color: $gradient-end) {
+  background-image: linear-gradient($start-color, $mid-color $color-stop, $end-color);
+  background-repeat: no-repeat;
+}

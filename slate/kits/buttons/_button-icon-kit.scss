@@ -1,0 +1,242 @@
+// ======================================================================
+// Slate Framework <hello@slateengine.com>
+// ======================================================================
+//
+// ======================================================================
+// Button Icon Kit
+// ======================================================================
+
+%icon--display {
+  display: $button-icons-display;
+}
+
+%icon--left {
+  @include rem(margin, $button-icons-left-spacing)
+}
+
+%icon--right {
+  @include rem(margin, $button-icons-right-spacing)
+}
+
+%icon--weight {
+  font-weight: $button-icons-weight;
+}
+// Math Icon Modifiers
+@if $button-icons-math == true {
+  .icon-plus-left::before {
+    @extend %icon--left;
+    @extend %icon--display;
+    @extend %icon--weight;
+    content: '\002B';
+  }
+
+  .icon-plus-right::after {
+    @extend %icon--right;
+    @extend %icon--display;
+    @extend %icon--weight;
+    content: '\002B';
+  }
+
+  .icon-minus-left::before {
+    @extend %icon--left;
+    @extend %icon--display;
+    @extend %icon--weight;
+    content: '\02212';
+  }
+
+  .icon-minus-right::after {
+    @extend %icon--right;
+    @extend %icon--display;
+    @extend %icon--weight;
+    content: '\02212';
+  }
+
+  .icon-multiply-left::before {
+    @extend %icon--left;
+    @extend %icon--display;
+    @extend %icon--weight;
+    content: '\000D7';
+  }
+
+  .icon-multiply-right::after {
+    @extend %icon--right;
+    @extend %icon--display;
+    @extend %icon--weight;
+    content: '\000D7';
+  }
+
+  .icon-division-left::before {
+    @extend %icon--left;
+    @extend %icon--display;
+    @extend %icon--weight;
+    content: '\000F7';
+  }
+
+  .icon-division-right::after {
+    @extend %icon--right;
+    @extend %icon--display;
+    @extend %icon--weight;
+    content: '\000F7';
+  }
+
+  .icon-equal-left::before {
+    @extend %icon--left;
+    @extend %icon--display;
+    @extend %icon--weight;
+    content: '\0003D';
+  }
+
+  .icon-equal-right::after {
+    @extend %icon--right;
+    @extend %icon--display;
+    @extend %icon--weight;
+    content: '\0003D';
+  }
+}
+// Arrow Icon Modifiers
+// Solid
+@if $button-icons-solid-arrows == true {
+  .icon-leftarrow-left::before {
+    @extend %icon--left;
+    @extend %icon--display;
+    @extend %icon--weight;
+    content: '\02190';
+  }
+
+  .icon-leftarrow-right::after {
+    @extend %icon--right;
+    @extend %icon--display;
+    @extend %icon--weight;
+    content: '\02192';
+  }
+
+  .icon-rightarrow-left::before {
+    @extend %icon--left;
+    @extend %icon--display;
+    @extend %icon--weight;
+    content: '\02192';
+  }
+
+  .icon-rightarrow-right::after {
+    @extend %icon--right;
+    @extend %icon--display;
+    @extend %icon--weight;
+    content: '\02192';
+  }
+
+  .icon-downarrow-left::before {
+    @extend %icon--left;
+    @extend %icon--display;
+    @extend %icon--weight;
+    content: '\02193';
+  }
+
+  .icon-downarrow-right::after {
+    @extend %icon--right;
+    @extend %icon--display;
+    @extend %icon--weight;
+    content: '\02193';
+  }
+
+  .icon-uparrow-left::before {
+    @extend %icon--left;
+    @extend %icon--display;
+    @extend %icon--weight;
+    content: '\02191';
+  }
+
+  .icon-uparrow-right::after {
+    @extend %icon--right;
+    @extend %icon--display;
+    @extend %icon--weight;
+    content: '\02191';
+  }
+}
+// Dashed
+@if $button-icons-dashed-arrows == true {
+  .icon-leftarrowdashed-left::before {
+    @extend %icon--left;
+    @extend %icon--display;
+    @extend %icon--weight;
+    content: '\021E0';
+  }
+
+  .icon-leftarrowdashed-right::after {
+    @extend %icon--right;
+    @extend %icon--display;
+    @extend %icon--weight;
+    content: '\021E0';
+  }
+
+  .icon-rightarrowdashed-left::before {
+    @extend %icon--left;
+    @extend %icon--display;
+    @extend %icon--weight;
+    content: '\021E2';
+  }
+
+  .icon-rightarrowdashed-right::after {
+    @extend %icon--right;
+    @extend %icon--display;
+    @extend %icon--weight;
+    content: '\021E2';
+  }
+
+  .icon-downarrowdashed-left::before {
+    @extend %icon--left;
+    @extend %icon--display;
+    @extend %icon--weight;
+    content: '\021E3';
+  }
+
+  .icon-downarrowdashed-right::after {
+    @extend %icon--right;
+    @extend %icon--display;
+    @extend %icon--weight;
+    content: '\021E3';
+  }
+
+  .icon-uparrowdashed-left::before {
+    @extend %icon--left;
+    @extend %icon--display;
+    @extend %icon--weight;
+    content: '\021E1';
+  }
+
+  .icon-uparrowdashed-right::after {
+    @extend %icon--right;
+    @extend %icon--display;
+    @extend %icon--weight;
+    content: '\021E1';
+  }
+}
+// Chevrons
+@if $button-icons-chevrons == true {
+  .icon-singlechevron-left::before {
+    @extend %icon--left;
+    @extend %icon--display;
+    @extend %icon--weight;
+    content: '\02039';
+  }
+
+  .icon-singlechevron-right::after {
+    @extend %icon--right;
+    @extend %icon--display;
+    @extend %icon--weight;
+    content: '\0203A';
+  }
+
+  .icon-doublechevron-left::before {
+    @extend %icon--left;
+    @extend %icon--display;
+    @extend %icon--weight;
+    content: '\000AB';
+  }
+
+  .icon-doublechevron-right::after {
+    @extend %icon--right;
+    @extend %icon--display;
+    @extend %icon--weight;
+    content: '\000BB';
+  }
+}

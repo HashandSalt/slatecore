@@ -1,0 +1,102 @@
+// ======================================================================
+// Slate Framework <hello@slateengine.com>
+// ======================================================================
+//
+// ======================================================================
+// Table Kit
+// ======================================================================
+// ======================================================================
+// Tables
+// ======================================================================
+/// Quickly skin tables using variables from a SASS map
+/// @example scss - Tables
+/// table {
+///     @include table($default-table);
+/// }
+/// @author Hash&Salt
+/// @param {Variable} $table-skin [$default-table] - SASS map to use for the skin.
+/// @group Tables
+@mixin table($table-skin: $default-table) {
+  @include rem(border-width, map-deep-get($table-skin, 'borderwidth'));
+  font-family: map-deep-get($table-skin, 'fontfamily');
+  table-layout: map-deep-get($table-skin, 'layout');
+  border-color: map-deep-get($table-skin, 'bordercolor');
+  border-style: map-deep-get($table-skin, 'borderstyle');
+  border-collapse: map-deep-get($table-skin, 'bordercollapse');
+  width: map-deep-get($table-skin, 'width');
+  margin: map-deep-get($table-skin, 'margin');
+  background: map-deep-get($table-skin, 'background');
+
+  caption {
+    @include rem(padding, map-deep-get($table-skin, 'caption', 'padding'));
+    @include rem(font-size, map-deep-get($table-skin, 'caption', 'fontsize'));
+    @include rem(border-width, map-deep-get($table-skin, 'caption', 'borderwidth'));
+    background: map-deep-get($table-skin, 'caption', 'background');
+    font-family: map-deep-get($table-skin, 'caption', 'fontfamily');
+    font-weight: map-deep-get($table-skin, 'caption', 'fontweight');
+    color: map-deep-get($table-skin, 'caption', 'fontcolor');
+    text-align: map-deep-get($table-skin, 'caption', 'textalign');
+    border-color: map-deep-get($table-skin, 'caption', 'bordercolor');
+    border-style: map-deep-get($table-skin, 'caption', 'borderstyle');
+  }
+
+  thead {
+    td,
+    th {
+      @include rem(border-width, map-deep-get($table-skin, 'header', 'borderwidth'));
+      @include rem(font-size, map-deep-get($table-skin, 'header', 'fontsize'));
+      @include rem(padding, map-deep-get($table-skin, 'header', 'padding'));
+      background: map-deep-get($table-skin, 'header', 'background');
+      font-family: map-deep-get($table-skin, 'header', 'fontfamily');
+      font-weight: map-deep-get($table-skin, 'header', 'fontweight');
+      color: map-deep-get($table-skin, 'header', 'fontcolor');
+      text-align: map-deep-get($table-skin, 'header', 'textalign');
+      border-color: map-deep-get($table-skin, 'header', 'bordercolor');
+      border-style: map-deep-get($table-skin, 'header', 'borderstyle');
+    }
+  }
+
+  tbody {
+    td {
+      @include rem(font-size, map-deep-get($table-skin, 'body', 'fontsize'));
+      @include rem(border-width, map-deep-get($table-skin, 'body', 'borderwidth'));
+      @include rem(padding, map-deep-get($table-skin, 'body', 'padding'));
+      background: map-deep-get($table-skin, 'body', 'background');
+      font-family: map-deep-get($table-skin, 'body', 'fontfamily');
+      font-weight: map-deep-get($table-skin, 'body', 'fontweight');
+      color: map-deep-get($table-skin, 'body', 'fontcolor');
+      text-align: map-deep-get($table-skin, 'body', 'textalign');
+      border-color: map-deep-get($table-skin, 'body', 'bordercolor');
+      border-style: map-deep-get($table-skin, 'body', 'borderstyle');
+      vertical-align: map-deep-get($table-skin, 'body', 'bverticalalign');
+    }
+
+    tr:nth-child(even) {
+      td {
+        background: map-deep-get($table-skin, 'body', 'evenbackground');
+      }
+    }
+
+    tr:nth-child(odd) {
+      td {
+        background: map-deep-get($table-skin, 'body', 'oddbackground');
+      }
+    }
+  }
+
+  tfoot {
+    td {
+      @include rem(font-size, map-deep-get($table-skin, 'footer', 'fontsize'));
+      @include rem(border-width, map-deep-get($table-skin, 'footer', 'borderwidth'));
+      @include rem(padding, map-deep-get($table-skin, 'footer', 'padding'));
+      background: map-deep-get($table-skin, 'footer', 'background');
+      font-family: map-deep-get($table-skin, 'footer', 'fontfamily');
+      font-weight: map-deep-get($table-skin, 'footer', 'fontweight');
+      color: map-deep-get($table-skin, 'footer', 'fontcolor');
+      text-align: map-deep-get($table-skin, 'footer', 'textalign');
+      border-color: map-deep-get($table-skin, 'footer', 'bordercolor');
+      border-style: map-deep-get($table-skin, 'footer', 'borderstyle');
+      vertical-align: map-deep-get($table-skin, 'footer', 'bverticalalign');
+    }
+  }
+}

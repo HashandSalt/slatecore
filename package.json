@@ -1,0 +1,13 @@
+{
+  "name": "slatecore",
+  "version": "5.2.5",
+  "description": "Slate is a responsive, modern web framework written in Sass. ",
+  "main": "slate/_slate.scss",
+  "scripts": {},
+  "repository": "",
+  "license": "MIT",
+  "devDependencies": {
+    "sassdoc": "^2.5.0"
+  },
+  "dependencies": {}
+}

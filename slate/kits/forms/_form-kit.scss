@@ -1,0 +1,44 @@
+// ======================================================================
+// Slate Framework <hello@slateengine.com>
+// ======================================================================
+//
+// ======================================================================
+// Form Kit
+// ======================================================================
+
+@import 'input-kit';
+@import 'valid-kit';
+
+// ======================================================================
+// Form Globals
+// ======================================================================
+
+/// [Basic setup for forms, using some sensible defaults.]
+/// @param  {[type]} $map-name [$form-skin-default] [variable used for the forms skin]
+/// @author Hash&Salt
+/// @group Forms
+@mixin form($map-name: $form-skin-default) {
+  @include rem(margin, map-deep-get($map-name, 'form', 'margin'));
+  @include rem(padding, map-deep-get($map-name, 'form', 'padding'));
+
+  legend {
+    @include rem(margin, map-deep-get($map-name, 'legend', 'margin'));
+    @include rem(line-height, map-deep-get($map-name, 'legend', 'line-height'));
+  }
+
+  fieldset {
+    @include rem(margin, map-deep-get($map-name, 'fieldset', 'margin'));
+    @include rem(padding, map-deep-get($map-name, 'fieldset', 'padding'));
+    display: block;
+  }
+
+  label,
+  span {
+    &.label {
+      @include rem(margin, map-deep-get($map-name, 'labels', 'spacing'));
+      display: inline-block;
+      font-style: inherit;
+      color: map-deep-get($map-name, 'labels', 'color');
+    }
+  }
+}

@@ -1,0 +1,178 @@
+// ======================================================================
+// Slate Framework <hello@slateengine.com>
+// ======================================================================
+//
+// ======================================================================
+// Layout Kit
+// ======================================================================
+
+/// The Gridler allows you to very quickly build grids of equal sized columns
+/// and set breakpoints for how the columns columns collapse. A use case for this would be something like a product list on an ecommerce site or a portfolio of work.
+/// @example scss - Default Gridler
+/// .parentdiv {
+///   @include gridler;
+///      ...
+/// }
+/// @example scss - Custom Gridler
+/// .parentdiv {
+///   @include gridler($gridler-elm: 'your-class', $gridler-base: 12, $gsmall: 6, $gmedium: 4, $glarge: 3, $gsmbp: $bp-small, $gmebp: $bp-medium, $glgbp: 1440px);
+///      ...
+/// }
+/// @param {Variable} $gridler-elm [$gridler-element] - Class to use for the columns. Set globally in the config, but can be set at will when using the mixin.
+/// @param {Variable} $gridler-base [$gridler-default-c] - Default column width to use before Media Queries kick in.
+/// @param {Variable} $gsmall [$gridler-sm-c] - Number of columns to use at the smallest size
+/// @param {Variable} $gmedium [$gridler-me-c] - Number of columns to use at the medium size
+/// @param {Variable} $glarge [$gridler-lg-c] - Number of columns to use at the largest size
+/// @param {Variable} $gsmbp [$gridler-sm] - Break point for the small range
+/// @param {Variable} $gmebp [$gridler-me] - Break point for the medium range
+/// @param {Variable} $glgbp [$gridler-lg] - Break point for the large range
+/// @author Hash&Salt
+/// @group Layout Helpers
+
+@mixin gridler($gridler-elm: $gridler-element, $gcbsp: $gridler-column-bottom-spacing, $gsmall: $gridler-sm-c, $gmedium: $gridler-me-c, $glarge: $gridler-lg-c, $g-width: $gutter-width, $c-margin: $container-margin, $gsmbp: $gridler-sm, $gmebp: $gridler-me, $glgbp: $gridler-lg, $gridler-center: $center-containers, $gridler-maxwidth: $center-container-max-width) {
+  @include container($gridler-maxwidth, $gridler-center, $c-margin);
+
+  > .#{$gridler-elm} {
+    @include column($total-columns);
+    @include rem(margin-bottom, $gcbsp);
+    clear: both;
+  }
+  @media screen and (min-width: $gsmbp) {
+    @include generate-grid-positions('.#{$gridler-elm}', $gsmall, $gcbsp, $g-width);
+
+    > .#{$gridler-elm} {
+      @include column($gsmall, null, $g-width);
+      @include rem(margin-bottom, $gcbsp);
+      clear: none;
+    }
+  }
+  @media screen and (min-width: $gmebp) {
+    @include generate-grid-positions('.#{$gridler-elm}', $gmedium, $gcbsp, $g-width);
+
+    > .#{$gridler-elm} {
+      @include column($gmedium, null, $g-width);
+      @include rem(margin-bottom, $gcbsp);
+      clear: none;
+    }
+  }
+  @media screen and (min-width: $glgbp) {
+    @include generate-grid-positions('.#{$gridler-elm}', $glarge, $gcbsp, $g-width);
+
+    > .#{$gridler-elm} {
+      @include column($glarge, null, $g-width);
+      @include rem(margin-bottom, $gcbsp);
+      clear: none;
+    }
+  }
+}
+
+// Holygrail
+// ======================================================================
+
+/// Easily pull off a triple column layour aka The Holy Grail.
+/// @example scss - Default Holy Grail
+/// .parentdiv {
+///   @include holygrail;
+///      ...
+/// }
+/// @example scss - Custom Holy Grail
+/// .parentdiv {
+///   @include holygrail($holygrail-left-elm: 'holygrail-left', $holygrail-middle-elm: 'holygrail-middle', $holygrail-right-elm: 'holygrail-right', $holygrail-left-c: 2, $holygrail-middle-c: 3, $holygrail-right-c: 7, $holygrail-bp: 640px);
+///      ...
+/// }
+/// @param {Variable} $elm [$element] - Class to use for the columns. Set globally in the config, but can be set at will when using the mixin.
+/// @param {Variable} $gsmall [$sm-c] - Number of columns to use at the smallest size
+/// @param {Variable} $gmedium [$me-c] - Number of columns to use at the medium size
+/// @param {Variable} $glarge [$lg-c] - Number of columns to use at the largest size
+/// @group Layout Helpers
+
+@mixin holygrail($holygrail-left-elm: $holygrail-left-element, $holygrail-middle-elm: $holygrail-middle-element, $holygrail-right-elm: $holygrail-right-element, $holygrail-bp: $holygrail-breakpoint, $holygrail-left-c: $holygrail-left-column, $holygrail-middle-c: $holygrail-middle-column, $holygrail-right-c: $holygrail-right-column, $g-width: $gutter-width, $c-margin: $container-margin, $holygrail-center: $center-containers, $holygrail-maxwidth: $center-container-max-width, $gcbsp: $holygrail-column-bottom-spacing) {
+  @include container($holygrail-maxwidth, $holygrail-center, $c-margin);
+
+  .#{$holygrail-left-elm},
+  .#{$holygrail-middle-elm},
+  .#{$holygrail-right-elm} {
+    @include column(12, null, $g-width);
+    @include rem(margin-bottom, $gcbsp);
+    clear: both;
+  }
+  @media screen and (min-width: $holygrail-bp) {
+    .#{$holygrail-left-elm} {
+      @include column($holygrail-left-c, null, $g-width);
+      clear: none;
+    }
+
+    .#{$holygrail-middle-elm} {
+      @include column($holygrail-middle-c, $holygrail-left-c, $g-width);
+      clear: none;
+    }
+
+    .#{$holygrail-right-elm} {
+      @include column($holygrail-right-c, $holygrail-left-c + $holygrail-middle-c, $g-width);
+      clear: none;
+    }
+  }
+}
+
+// Flank
+// ======================================================================
+
+/// Flank allows to you do a content area flank by a sidebar, either on the left or the right.
+/// @example scss - Default Gridler
+/// .parentdiv {
+///   @include flank;
+///      ...
+/// }
+/// @example scss - Custom Gridler
+/// .parentdiv {
+///   @include flank($flankdir: 'left', $flank-flank-elm: 'flank', $flank-main-elm: 'main', $flank-main-c: 7, $flank-flank-c: 5, $flank-bp: 640px);
+///      ...
+/// }
+/// @param {Variable} $flankdir - Side you want the to flank to appear. Set to right or left
+/// @param {Variable} $flank-main-elm [$flank-main-element] - Class for the large area
+/// @param {Variable} $flank-flank-elm [$flank-flank-element] - Class for the small area
+/// @param {Variable} $flank-bp [$flank-breakpoint] - Breakpoint at which the flank collapse to one column
+/// @param {Variable} $flank-main-c [$flank-main-column] - Width in columns of large area
+/// @param {Variable} $flank-flank-c [$flank-flank-column] - Width in columns of large area
+/// @group Layout Helpers
+
+@mixin flank($flankdir: 'right', $flank-main-elm: $flank-main-element, $flank-flank-elm: $flank-flank-element, $flank-main-c: $flank-main-column, $flank-flank-c: $flank-flank-column, $flank-bp: $flank-breakpoint, $gcbsp: $flank-column-bottom-spacing, $g-width: $gutter-width, $c-margin: $container-margin, $flank-center: $center-containers, $flank-maxwidth: $center-container-max-width) {
+  @include container($flank-maxwidth, $flank-center, $c-margin);
+
+  .#{$flank-flank-elm},
+  .#{$flank-main-elm} {
+    @include column(12, null, $g-width);
+    @include rem(margin-bottom, $gcbsp);
+    clear: both;
+  }
+
+  @if $flankdir == 'left' {
+    // left flank
+    @media screen and (min-width: $flank-bp) {
+      .#{$flank-main-elm} {
+        @include column($flank-main-c, $flank-flank-c, $g-width);
+        clear: none;
+      }
+
+      .#{$flank-flank-elm} {
+        @include column($flank-flank-c, 0, $g-width);
+        clear: none;
+      }
+    }
+  }
+
+  @if $flankdir == 'right' {
+    // right flank
+    @media screen and (min-width: $flank-bp) {
+      .#{$flank-main-elm} {
+        @include column($flank-main-c, 0, $g-width);
+        clear: none;
+      }
+
+      .#{$flank-flank-elm} {
+        @include column($flank-flank-c, $flank-main-c, $g-width);
+        clear: none;
+      }
+    }
+  }
+}

@@ -1,0 +1,67 @@
+// ======================================================================
+// Grid
+// ======================================================================
+
+/// Grid Total Columns
+/// @group Grid
+$total-columns: 12 !default;
+
+/// Grid Total Width
+/// @group Grid
+$total-width: 100% !default;
+
+/// Grid Gutter Width
+/// @group Grid
+$gutter-width: 2% !default;
+
+/// Grid Column Bottom Spacing
+/// @group Grid
+$column-bottom-spacing: 24px !default;
+
+/// Grid Container margin
+/// @group Grid
+$container-margin: 2% !default;
+
+/// Class to use for rows
+/// @group Grid
+$class-container: 'row' !default;
+
+/// Class to use for columns
+/// @group Grid
+$class-column: 'col' !default;
+
+/// Class to use for push
+/// @group Grid
+$class-push: 'push' !default;
+
+/// Center Containers
+/// @group Grid
+$center-containers: true !default;
+
+/// Center Containers Max Width
+/// @group Grid
+$center-container-max-width: 1140px !default;
+
+/// Breakpoint - tiny
+/// @group Breakpoints
+$bp-tiny: 320px !default;
+
+/// Breakpoint - xsmall
+/// @group Breakpoints
+$bp-xsmall: 480px !default;
+
+/// Breakpoint - small
+/// @group Breakpoints
+$bp-small: 640px !default;
+
+/// Breakpoint - medium
+/// @group Breakpoints
+$bp-medium: 800px !default;
+
+/// Breakpoint - large
+/// @group Breakpoints
+$bp-large: 960px !default;
+
+/// Breakpoint - xl
+/// @group Breakpoints
+$bp-xl: 1140px !default;

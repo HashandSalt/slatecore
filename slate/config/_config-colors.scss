@@ -1,0 +1,49 @@
+// ======================================================================
+// Colors
+// ======================================================================
+
+/// Monochrome - Bright
+/// @group Monochrome Colors
+$bright: #eee;
+/// Monochrome - Gray
+/// @group Monochrome Colors
+$gray: #9f9f9f;
+/// Monochrome - Dark
+/// @group Monochrome Colors
+$dark: #3c3c3c;
+/// Monochrome - Jet
+/// @group Monochrome Colors
+$jet: #000;
+
+/// Palette - Primary
+/// @group Palette Colors
+$primary: #96def0 !default;
+/// Palette - Secondary
+/// @group Palette Colors
+$secondary: #2980b9 !default;
+/// Palette - Secondary
+/// @group Palette Colors
+$tertiary: #8e44ad !default;
+
+/// Feedback - Positive
+/// @group Feedback Colors
+$positive: #2ecc71 !default;
+/// Feedback - Negative
+/// @group Feedback Colors
+$negative: #971318 !default;
+/// Feedback - Warning
+/// @group Feedback Colors
+$warning: #f39c12 !default;
+// Feedback - Disabled
+// @group Feedback Colors
+$disabled: #adadad !default;
+
+/// Gradient - Start
+/// @group Gradient Colors
+$gradient-start: $primary !default;
+/// Gradient - Middle
+/// @group Gradient Colors
+$gradient-middle: darken($primary, 20%) !default;
+/// Gradient - End
+/// @group Gradient Colors
+$gradient-end: darken($primary, 40%) !default;

@@ -1,0 +1,11 @@
+// ======================================================================
+// Accessibility
+// ======================================================================
+
+/// Accessibility border style to be used as a focus state on elements
+/// @group Accessibility
+$a11y-outline: 2px solid $warning !default;
+
+/// Accessibility background color to be used as a focus state on elements
+/// @group Accessibility
+$a11y-background: $warning;

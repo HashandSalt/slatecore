@@ -1,0 +1,44 @@
+// ======================================================================
+// Slate Framework <hello@slateengine.com>
+// ======================================================================
+//
+// ======================================================================
+// Grid Functions
+// ======================================================================
+
+
+// Calculate element width
+@function element-width($column-index, $g-width: $gutter-width) {
+  @if $total-width == 100% {
+    $not-rounded-value: (100% + $g-width) / $total-columns * $column-index - $g-width;
+    $not-rounded-value: $not-rounded-value * 100;
+    $rounded-value: round($not-rounded-value) / 100;
+    @return $rounded-value;
+  } @else {
+    @return ($total-width + $g-width) / $total-columns * $column-index - $g-width;
+  }
+}
+
+// Calculate column width
+@function column-width($g-width: $gutter-width) {
+  @if $total-width == 100% {
+    $not-rounded-value: (100% + $g-width) / $total-columns - $g-width;
+    $not-rounded-value: $not-rounded-value * 100;
+    $rounded-value: round($not-rounded-value) / 100;
+    @return $rounded-value * 1%;
+  } @else {
+    @return ($total-width - $g-width * ($total-columns - 1)) / $total-columns;
+  }
+}
+
+// Calculate container width
+@function container-width($c-margin: $container-margin) {
+  @if $total-width == 100% {
+    @if $c-margin == auto {
+      @return 100%;
+    }
+    @return 100% - 2 * $c-margin;
+  } @else {
+    @return $total-width;
+  }
+}

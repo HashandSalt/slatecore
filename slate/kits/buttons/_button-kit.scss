@@ -1,0 +1,356 @@
+// ======================================================================
+// Slate Framework <hello@slateengine.com>
+// ======================================================================
+//
+// ======================================================================
+// Button Kit
+// ======================================================================
+/// Button mixin lets you quickly make flat ui style buttons consistently accross all types of buttons (input, button and anchor).
+/// @example scss - Default Button using default sass map
+/// .button {
+///     @include button;
+/// }
+/// @example scss - Custom Button using custom sass map
+/// .button {
+///     @include button($my-map);
+/// }
+/// @author Hash&Salt
+/// @param {Variable} $map-name [$button-default] - Skin variable to use for the button.
+/// @group Buttons
+
+@mixin button($map-name: $button-default) {
+  // Base Button Style
+  @include rem(margin, map-get($map-name, margin));
+  @include rem(padding, map-get($map-name, padding));
+  @include rem(line-height, map-get($map-name, height));
+  @include rem(font-size, map-get($map-name, font-size));
+  @include rem(height, map-get($map-name, height));
+  @include rem(border-radius, map-get($map-name, rounded));
+  font-family: map-get($map-name, font-family);
+  text-transform: map-get($map-name, text-transform);
+  display: map-get($map-name, display);
+  font-weight: map-get($map-name, textweight);
+  text-align: map-get($map-name, textalign);
+  box-sizing: map-get($map-name, boxsizing);
+  border: 0;
+  text-decoration: none;
+  cursor: pointer;
+  // Background Color
+  background: map-get($map-name, default);
+  // Borders
+  @if map-get($map-name, use-borders) == true {
+    border-left: map-get($map-name, border-left);
+    border-right: map-get($map-name, border-right);
+    border-top: map-get($map-name, border-top);
+    border-bottom: map-get($map-name, border-bottom);
+  } @else {
+    border: 0;
+  }
+  @if lightness(map-get($map-name, default)) < 60% {
+    color: map-get($map-name, textlight);
+  } @else {
+    color: map-get($map-name, textdark);
+  }
+
+  &:hover {
+    background: map-get($map-name, hover);
+    @if lightness(map-get($map-name, hover)) < 60% {
+      color: map-get($map-name, textlight);
+    } @else {
+      color: map-get($map-name, textdark);
+    }
+    @if map-get($map-name, use-borders) == true {
+      border-left: map-get($map-name, border-hover-left);
+      border-right: map-get($map-name, border-hover-right);
+      border-top: map-get($map-name, border-hover-top);
+      border-bottom: map-get($map-name, border-hover-bottom);
+    } @else {
+      border: 0;
+    }
+  }
+
+  &:focus {
+    background: map-get($map-name, focus);
+    outline: none;
+
+    @if lightness(map-get($map-name, focus)) < 60% {
+      color: map-get($map-name, textlight);
+    } @else {
+      color: map-get($map-name, textdark);
+    }
+    @if map-get($map-name, use-borders) == true {
+      border-left: map-get($map-name, border-focus-left);
+      border-right: map-get($map-name, border-focus-right);
+      border-top: map-get($map-name, border-focus-top);
+      border-bottom: map-get($map-name, border-focus-bottom);
+    } @else {
+      border: 0;
+    }
+  }
+
+  &:active {
+    background: map-get($map-name, active);
+
+    @if lightness(map-get($map-name, active)) < 60% {
+      color: map-get($map-name, textlight);
+    } @else {
+      color: map-get($map-name, textdark);
+    }
+    @if map-get($map-name, use-borders) == true {
+      border-left: map-get($map-name, border-focus-left);
+      border-right: map-get($map-name, border-focus-right);
+      border-top: map-get($map-name, border-focus-top);
+      border-bottom: map-get($map-name, border-focus-bottom);
+    } @else {
+      border: 0;
+    }
+  }
+
+  &:disabled {
+    background: map-get($map-name, disabled);
+
+    @if lightness(map-get($map-name, disabled)) < 60% {
+      color: map-get($map-name, textlight);
+    } @else {
+      color: map-get($map-name, textdark);
+    }
+    cursor: default;
+    @if map-get($map-name, use-borders) == true {
+      border-left: map-get($map-name, border-disabled-left);
+      border-right: map-get($map-name, border-disabled-right);
+      border-top: map-get($map-name, border-disabled-top);
+      border-bottom: map-get($map-name, border-disabled-bottom);
+    } @else {
+      border: 0;
+    }
+  }
+}
+/// Gradient button mixin lets you quickly make gradient buttons consistently accross all types of buttons (input, button and anchor).
+/// @example scss - Default Gradient button using default gradient color map
+/// .button {
+///     @include button-gradient;
+/// }
+/// @example scss - Custom gradient button using custom color map
+/// .button {
+///     @include button-gradient($my-map);
+/// }
+/// @param {Variable} $map-name [$button-gradient] - Skin variable to use for the gradient button.
+/// @group Buttons
+@mixin button-gradient($map-name: $button-gradient) {
+  // Gradient Button Style
+  @include rem(margin, map-get($map-name, margin));
+  @include rem(padding, map-get($map-name, padding));
+  @include rem(line-height, map-get($map-name, height));
+  @include rem(font-size, map-get($map-name, font-size));
+  @include rem(height, map-get($map-name, height));
+  @include rem(border-radius, map-get($map-name, rounded));
+  font-family: map-get($map-name, font-family);
+  text-transform: map-get($map-name, text-transform);
+  display: map-get($map-name, display);
+  font-weight: map-get($map-name, textweight);
+  text-align: map-get($map-name, textalign);
+  box-sizing: map-get($map-name, boxsizing);
+  border: 0;
+  text-decoration: none;
+  cursor: pointer;
+  @if lightness(map-get($map-name, start-color)) < 60% {
+    color: map-get($map-name, textlight);
+  } @else {
+    color: map-get($map-name, textdark);
+  }
+  @if map-get($map-name, use-borders) == true {
+    border-left: map-get($map-name, border-left);
+    border-right: map-get($map-name, border-right);
+    border-top: map-get($map-name, border-top);
+    border-bottom: map-get($map-name, border-bottom);
+  } @else {
+    border: 0;
+  }
+  // Left to right
+  @if map-get($map-name, mode) == 'ltr' {
+    @include gradient-horizontal(map-get($map-name, start-color), map-get($map-name, end-color), map-get($map-name, start-pos), map-get($map-name, end-pos));
+
+    &:hover {
+      @include gradient-horizontal(map-get($map-name, start-color-hover), map-get($map-name, end-color-hover), map-get($map-name, start-pos), map-get($map-name, end-pos));
+      @if lightness(map-get($map-name, start-color)) < 60% {
+        color: map-get($map-name, textlight);
+      } @else {
+        color: map-get($map-name, textdark);
+      }
+      @if map-get($map-name, use-borders) == true {
+        border-left: map-get($map-name, border-hover-left);
+        border-right: map-get($map-name, border-hover-right);
+        border-top: map-get($map-name, border-hover-top);
+        border-bottom: map-get($map-name, border-hover-bottom);
+      } @else {
+        border: 0;
+      }
+    }
+
+    &:focus {
+      @include gradient-horizontal(map-get($map-name, start-color-hover), map-get($map-name, end-color-hover), map-get($map-name, start-pos), map-get($map-name, end-pos));
+      outline: none;
+      @if lightness(map-get($map-name, start-color)) < 60% {
+        color: map-get($map-name, textlight);
+      } @else {
+        color: map-get($map-name, textdark);
+      }
+      @if map-get($map-name, use-borders) == true {
+        border-left: map-get($map-name, border-focus-left);
+        border-right: map-get($map-name, border-focus-right);
+        border-top: map-get($map-name, border-focus-top);
+        border-bottom: map-get($map-name, border-focus-bottom);
+      } @else {
+        border: 0;
+      }
+    }
+
+    &:active {
+      @include gradient-horizontal(map-get($map-name, start-color-hover), map-get($map-name, end-color-hover), map-get($map-name, start-pos), map-get($map-name, end-pos));
+      @if lightness(map-get($map-name, start-color)) < 60% {
+        color: map-get($map-name, textlight);
+      } @else {
+        color: map-get($map-name, textdark);
+      }
+      @if map-get($map-name, use-borders) == true {
+        border-left: map-get($map-name, border-focus-left);
+        border-right: map-get($map-name, border-focus-right);
+        border-top: map-get($map-name, border-focus-top);
+        border-bottom: map-get($map-name, border-focus-bottom);
+      } @else {
+        border: 0;
+      }
+    }
+
+    &:disabled {
+      @include gradient-horizontal(map-get($map-name, start-color-disabled), map-get($map-name, end-color-disabled));
+      @if lightness(map-get($map-name, start-color)) < 60% {
+        color: map-get($map-name, textlight);
+      } @else {
+        color: map-get($map-name, textdark);
+      }
+      @if map-get($map-name, use-borders) == true {
+        border-left: map-get($map-name, border-disabled-left);
+        border-right: map-get($map-name, border-disabled-right);
+        border-top: map-get($map-name, border-disabled-top);
+        border-bottom: map-get($map-name, border-disabled-bottom);
+      } @else {
+        border: 0;
+      }
+    }
+  }
+
+  @if map-get($map-name, mode) == 'ttb' {
+    @include gradient-vertical(map-get($map-name, start-color), map-get($map-name, end-color), map-get($map-name, start-pos), map-get($map-name, end-pos));
+
+    &:hover {
+      @include gradient-vertical(map-get($map-name, start-color-hover), map-get($map-name, end-color-hover), map-get($map-name, start-pos), map-get($map-name, end-pos));
+      @if lightness(map-get($map-name, start-color)) < 60% {
+        color: map-get($map-name, textlight);
+      } @else {
+        color: map-get($map-name, textdark);
+      }
+      @if map-get($map-name, use-borders) == true {
+        border-left: map-get($map-name, border-hover-left);
+        border-right: map-get($map-name, border-hover-right);
+        border-top: map-get($map-name, border-hover-top);
+        border-bottom: map-get($map-name, border-hover-bottom);
+      } @else {
+        border: 0;
+      }
+    }
+
+    &:focus {
+      @include gradient-vertical(map-get($map-name, start-color-hover), map-get($map-name, end-color-hover), map-get($map-name, start-pos), map-get($map-name, end-pos));
+      outline: none;
+      @if lightness(map-get($map-name, start-color)) < 60% {
+        color: map-get($map-name, textlight);
+      } @else {
+        color: map-get($map-name, textdark);
+      }
+      @if map-get($map-name, use-borders) == true {
+        border-left: map-get($map-name, border-focus-left);
+        border-right: map-get($map-name, border-focus-right);
+        border-top: map-get($map-name, border-focus-top);
+        border-bottom: map-get($map-name, border-focus-bottom);
+      } @else {
+        border: 0;
+      }
+    }
+
+    &:active {
+      @include gradient-vertical(map-get($map-name, start-color-hover), map-get($map-name, end-color-hover), map-get($map-name, start-pos), map-get($map-name, end-pos));
+      @if lightness(map-get($map-name, start-color)) < 60% {
+        color: map-get($map-name, textlight);
+      } @else {
+        color: map-get($map-name, textdark);
+      }
+      @if map-get($map-name, use-borders) == true {
+        border-left: map-get($map-name, border-focus-left);
+        border-right: map-get($map-name, border-focus-right);
+        border-top: map-get($map-name, border-focus-top);
+        border-bottom: map-get($map-name, border-focus-bottom);
+      } @else {
+        border: 0;
+      }
+    }
+
+    &:disabled {
+      @include gradient-vertical(map-get($map-name, start-color-disabled), map-get($map-name, end-color-disabled));
+      @if lightness(map-get($map-name, start-color)) < 60% {
+        color: map-get($map-name, textlight);
+      } @else {
+        color: map-get($map-name, textdark);
+      }
+      @if map-get($map-name, use-borders) == true {
+        border-left: map-get($map-name, border-disabled-left);
+        border-right: map-get($map-name, border-disabled-right);
+        border-top: map-get($map-name, border-disabled-top);
+        border-bottom: map-get($map-name, border-disabled-bottom);
+      } @else {
+        border: 0;
+      }
+    }
+  }
+
+  @if map-get($map-name, mode) == 'rad' {
+    @include gradient-radial(map-get($map-name, start-color), map-get($map-name, end-color));
+
+    &:hover {
+      @include gradient-radial(map-get($map-name, start-color-hover), map-get($map-name, end-color-hover));
+      @if lightness(map-get($map-name, start-color)) < 60% {
+        color: map-get($map-name, textlight);
+      } @else {
+        color: map-get($map-name, textdark);
+      }
+    }
+
+    &:focus {
+      @include gradient-radial(map-get($map-name, start-color-focus), map-get($map-name, end-color-focus));
+      outline: none;
+      @if lightness(map-get($map-name, start-color)) < 60% {
+        color: map-get($map-name, textlight);
+      } @else {
+        color: map-get($map-name, textdark);
+      }
+    }
+
+    &:active {
+      @include gradient-radial(map-get($map-name, start-color-active), map-get($map-name, end-color-active));
+      @if lightness(map-get($map-name, start-color)) < 60% {
+        color: map-get($map-name, textlight);
+      } @else {
+        color: map-get($map-name, textdark);
+      }
+    }
+
+    &:disabled {
+      @include gradient-radial(map-get($map-name, start-color-disabled), map-get($map-name, end-color-disabled));
+      @if lightness(map-get($map-name, start-color)) < 60% {
+        color: map-get($map-name, textlight);
+      } @else {
+        color: map-get($map-name, textdark);
+      }
+    }
+  }
+}

@@ -43,7 +43,7 @@
 
 // Unitless lineheight function
 // ======================================================================
-@function unitless-line-height($global-base-font-size, $line-height: $global-base-font-size) {
+@function unitless-line-height($global-base-font-size, $line-height: $global-line-height) {
   @return $line-height / $global-base-font-size;
 }
 

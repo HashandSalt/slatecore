@@ -16,15 +16,15 @@ $modular-scale-eta: type-setting($global-base-font-size, $type-ratio, $modular-s
 $modular-scale-theta: type-setting($global-base-font-size, $type-ratio, $modular-step-theta);
 $modular-scale-iota: type-setting($global-base-font-size, $type-ratio, $modular-step-iota);
 
-$lineheight-alpha: ($global-base-font-size * $global-line-height) * 2;
-$lineheight-beta: ($global-base-font-size * $global-line-height) * 2;
-$lineheight-gamma: ($global-base-font-size * $global-line-height) * 2;
-$lineheight-delta: ($global-base-font-size * $global-line-height) * 2;
-$lineheight-epsilon: ($global-base-font-size * $global-line-height) * 2;
-$lineheight-zeta: $global-base-font-size * $global-line-height;
-$lineheight-eta: $global-line-height;
-$lineheight-theta: $global-line-height;
-$lineheight-iota: $global-line-height;
+$lineheight-alpha: $modular-scale-alpha * $global-line-height;
+$lineheight-beta: $modular-scale-beta * $global-line-height;
+$lineheight-gamma: $modular-scale-gamma * $global-line-height;
+$lineheight-delta: $modular-scale-delta * $global-line-height;
+$lineheight-epsilon: $modular-scale-epsilon * $global-line-height;
+$lineheight-zeta: $modular-scale-zeta * $global-line-height;
+$lineheight-eta: $modular-scale-eta * $global-line-height;
+$lineheight-theta: $modular-scale-theta * $global-line-height;
+$lineheight-iota: $modular-scale-iota * $global-line-height;
 
 // Map of modular font scales
 // @group Typography
@@ -153,8 +153,8 @@ $line-heights: ( alpha: $lineheight-alpha, beta: $lineheight-beta, gamma: $lineh
 }
 
 // unitless line height mixin
-@mixin unitless-line-height($font-size, $line-height: $global-base-font-size) {
-  line-height: $line-height / $font-size;
+@mixin unitless-line-height($font-size, $line-height: $global-line-height) {
+  line-height: unitless-line-height($font-size, $line-height);
 }
 
 /// Draw Baselines to help with setting typography.

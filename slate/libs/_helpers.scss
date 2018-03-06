@@ -177,5 +177,5 @@
 /// @param {string} $oldcolor - Icons original color to replace
 /// @group Helpers
 @mixin svgbg($icon, $newcolor: $svg-icon-replace-color, $oldcolor: $svg-icon-orginal-color) {
-  background-image: svg-url-with-replaced-fill($examplesvg, $oldcolor, $newcolor);
+  background-image: svg-url-with-replaced-fill($icon, $oldcolor, $newcolor);
 }

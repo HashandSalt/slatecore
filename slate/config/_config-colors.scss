@@ -4,16 +4,16 @@
 
 /// Monochrome - Bright
 /// @group Monochrome Colors
-$bright: #eee;
+$bright: #eee !default;
 /// Monochrome - Gray
 /// @group Monochrome Colors
-$gray: #9f9f9f;
+$gray: #9f9f9f !default;
 /// Monochrome - Dark
 /// @group Monochrome Colors
-$dark: #3c3c3c;
+$dark: #3c3c3c !default;
 /// Monochrome - Jet
 /// @group Monochrome Colors
-$jet: #000;
+$jet: #000 !default;
 
 /// Palette - Primary
 /// @group Palette Colors

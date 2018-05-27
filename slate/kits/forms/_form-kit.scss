@@ -33,12 +33,10 @@
   }
 
   label,
-  span {
-    &.label {
+  span.label {
       @include rem(margin, map-deep-get($map-name, 'labels', 'spacing'));
       display: inline-block;
       font-style: inherit;
       color: map-deep-get($map-name, 'labels', 'color');
-    }
   }
 }

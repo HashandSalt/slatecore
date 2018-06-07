@@ -224,7 +224,7 @@
       } @else {
         border: 0;
       }
-      @if lightness(map-get($map-name, background-color)) < 60% {
+      @if lightness(map-get($map-name, background-color-focus)) < 60% {
         color: map-get($map-name, textlight);
       } @else {
         color: map-get($map-name, textdark);

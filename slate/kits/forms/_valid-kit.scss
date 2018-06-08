@@ -13,49 +13,50 @@
 /// @author Hash&Salt
 /// @param {Variable} $valid-classes [$form-validation-classes-toggle] - Toggle validation classes.
 /// @group Validation
-@mixin validation($map-name: $validation-default) {
-  @if map-get($map-name, use-classes) == true {
-    .#{$form-required-class} {
-      color: map-get($map-name, label-color-required);
+@mixin validation($map-name: $input-skin) {
+  @if map-deep-get($map-name, 'validation', 'use-classes') == true {
+    // Valid
+    .#{map-deep-get($map-name, 'validation', 'valid-class')} {
+      color: map-deep-get($map-name, 'validation', 'valid-color');
     }
-
-    .#{$form-valid-class} {
-      color: map-get($map-name, label-color-valid);
+    // Invalid
+    .#{map-deep-get($map-name, 'validation', 'invalid-class')} {
+      color: map-deep-get($map-name, 'validation', 'invalid-color');
     }
-
-    .#{$form-invalid-class} {
-      color: map-get($map-name, label-color-invalid);
+    // Required
+    .#{map-deep-get($map-name, 'validation', 'required-class')} {
+      color: map-deep-get($map-name, 'validation', 'required-color');
     }
     // Classes for required Inputs
     @include inputs-all {
+      // Valid
+      &.#{map-deep-get($map-name, 'validation', 'valid-class')} {
+        border-color: map-deep-get($map-name, 'validation', 'valid-input-border-color');
+        color: map-deep-get($map-name, 'validation', 'valid-color');
+
+        &:focus {
+          border-color: map-deep-get($map-name, 'validation', 'valid-input-border-color');
+          color: map-deep-get($map-name, 'validation', 'valid-color');
+        }
+      }
+      // Invalid
+      &.#{map-deep-get($map-name, 'validation', 'invalid-class')} {
+        border-color: map-deep-get($map-name, 'validation', 'invalid-input-border-color');
+        color: map-deep-get($map-name, 'validation', 'invalid-color');
+
+        &:focus {
+          border-color: map-deep-get($map-name, 'validation', 'invalid-input-border-color');
+          color: map-deep-get($map-name, 'validation', 'invalid-color');
+        }
+      }
       // Required
-      &.#{$form-required-class} {
-        border: map-get($map-name, border-required);
-        color: map-get($map-name, color-required);
+      &.#{map-deep-get($map-name, 'validation', 'required-class')} {
+        border-color: map-deep-get($map-name, 'validation', 'required-input-border-color');
+        color: map-deep-get($map-name, 'validation', 'required-color');
 
         &:focus {
-          border: map-get($map-name, focus-border-required);
-          color: map-get($map-name, color-required);
-        }
-      }
-
-      &.#{$form-valid-class} {
-        border: map-get($map-name, border-valid);
-        color: map-get($map-name, color-valid);
-
-        &:focus {
-          border: map-get($map-name, focus-border-valid);
-          color: map-get($map-name, color-valid);
-        }
-      }
-
-      &.#{$form-invalid-class} {
-        border: map-get($map-name, border-invalid);
-        color: map-get($map-name, color-invalid);
-
-        &:focus {
-          border: map-get($map-name, focus-border-invalid);
-          color: map-get($map-name, color-invalid);
+          border-color: map-deep-get($map-name, 'validation', 'required-input-border-color');
+          color: map-deep-get($map-name, 'validation', 'required-color');
         }
       }
     }
@@ -65,18 +66,18 @@
       &:focus {
         // Required
         &:required {
-          border: map-get($map-name, border-required);
-          color: map-get($map-name, color-required);
-
-          &:valid {
-            border: map-get($map-name, border-valid);
-            color: map-get($map-name, color-valid);
-          }
-
-          &:invalid {
-            border: map-get($map-name, border-invalid);
-            color: map-get($map-name, color-invalid);
-          }
+          border-color: map-deep-get($map-name, 'validation', 'required-input-border-color');
+          color: map-deep-get($map-name, 'validation', 'required-color');
+        }
+        // Valid
+        &:valid {
+          border-color: map-deep-get($map-name, 'validation', 'valid-input-border-color');
+          color: map-deep-get($map-name, 'validation', 'valid-color');
+        }
+        // Invalid
+        &:invalid {
+          border-color: map-deep-get($map-name, 'validation', 'invalid-input-border-color');
+          color: map-deep-get($map-name, 'validation', 'invalid-color');
         }
       }
     }

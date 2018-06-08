@@ -11,7 +11,7 @@
 ///   @include inputs($map-variable);
 /// @author Hash&Salt
 /// @group Forms
-@mixin inputs($map-name: $input-default) {
+@mixin inputs($map-name: $input-skin) {
   input,
   select,
   textarea {
@@ -20,20 +20,21 @@
   }
 
   textarea {
-    @include rem(margin, map-get($map-name, margin));
+    @include rem(margin, map-deep-get($map-name, 'margin'));
     @include rem(min-height, 150px);
     position: relative;
     overflow: auto;
     outline: none;
-    line-height: map-get($map-name, line-height);
+    line-height: map-deep-get($map-name, 'line-height');
     box-sizing: border-box;
     resize: vertical;
+
   }
 
   [type='range'] {
-    @include rem(margin, map-get($map-name, margin));
-    @include rem(height, map-get($map-name, height));
-    width: map-get($map-name, width);
+    @include rem(margin, map-deep-get($map-name, 'margin'));
+    @include rem(height, map-deep-get($map-name, 'height'));
+    width: map-deep-get($map-name, width);
   }
 
   [type='checkbox'],
@@ -44,67 +45,69 @@
     display: inline;
     height: auto;
     width: auto;
+    @include rem(margin, map-deep-get($map-name, 'radios', 'check-radio-margin'));
   }
 
-  [type='checkbox'],
-  [type='radio'] {
-    @include rem(margin, map-get($map-name, check-radio-margin));
-  }
+
   @include inputs-all {
-    @include rem(height, map-get($map-name, height));
-    @include rem(margin, map-get($map-name, margin));
-    @include rem(font-size, map-get($map-name, font-size));
-    @include rem(padding, map-get($map-name, padding));
-    width: map-get($map-name, width);
-    font-family: map-get($map-name, font);
+    @include rem(height, map-deep-get($map-name, 'height'));
+    @include rem(margin, map-deep-get($map-name, 'margin'));
+    @include rem(font-size, map-deep-get($map-name, 'font-size'));
+    @include rem(padding, map-deep-get($map-name, 'padding'));
+    width: map-deep-get($map-name, 'width');
+    font-family: map-deep-get($map-name, 'font');
     box-sizing: border-box;
-    @if map-get($map-name, use-borders) == true {
-      border-left: map-get($map-name, border-left);
-      border-right: map-get($map-name, border-right);
-      border-top: map-get($map-name, border-top);
-      border-bottom: map-get($map-name, border-bottom);
+    @if map-deep-get($map-name, use-borders) == true {
+      border-width: map-deep-get($map-name, 'borders', 'border-width');
+      border-style: map-deep-get($map-name, 'borders', 'border-style');
+      border-color: map-deep-get($map-name, 'borders', 'border-color');
     } @else {
       border: 0;
     }
-    background-color: map-get($map-name, background-color);
-    @if lightness(map-get($map-name, background-color)) < 60% {
+    background-color: map-deep-get($map-name, 'bg', 'bg-color');
+    @if lightness(map-deep-get($map-name, 'bg', 'bg-color')) < 60% {
       // if background is dark...
-      color: map-get($map-name, textlight);
+      color: map-deep-get($map-name, textlight);
     } @else {
       // if background is light...
-      color: map-get($map-name, textdark);
+      color: map-deep-get($map-name, textdark);
     }
 
-    &:focus {
-      @if map-get($map-name, use-borders) == true {
-        border-left: map-get($map-name, border-focus-left);
-        border-right: map-get($map-name, border-focus-right);
-        border-top: map-get($map-name, border-focus-top);
-        border-bottom: map-get($map-name, border-focus-bottom);
+    &:hover {
+      background-color: map-deep-get($map-name, 'bg', 'bg-color-hover');
+      outline: none;
+      @if map-deep-get($map-name, use-borders) == true {
+        border-color: map-deep-get($map-name, 'borders', 'border-hover-color');
       } @else {
         border: 0;
       }
-      background-color: map-get($map-name, background-color-focus);
+    }
+
+
+    &:focus {
+      background-color: map-deep-get($map-name, 'bg', 'bg-color-focus');
       outline: none;
+      @if map-deep-get($map-name, use-borders) == true {
+        border-color: map-deep-get($map-name, 'borders', 'border-focus-color');
+      } @else {
+        border: 0;
+      }
     }
 
     &:disabled {
       cursor: disabled;
-      background-color: map-get($map-name, background-color-disabled);
-      @if map-get($map-name, use-borders) == true {
-        border-left: map-get($map-name, border-disabled-left);
-        border-right: map-get($map-name, border-disabled-right);
-        border-top: map-get($map-name, border-disabled-top);
-        border-bottom: map-get($map-name, border-disabled-bottom);
+      background-color: map-deep-get($map-name, 'bg', 'bg-color-disabled');
+      @if map-deep-get($map-name, use-borders) == true {
+        border-color: map-deep-get($map-name, 'borders', 'border-disabled-color');
       } @else {
         border: 0;
       }
-      @if lightness(map-get($map-name, background-color-disabled)) < 60% {
+      @if lightness(map-deep-get($map-name, 'bg', 'bg-color-disabled')) < 60% {
         // if background is dark...
-        color: map-get($map-name, textlight);
+        color: map-deep-get($map-name, textlight);
       } @else {
         // if background is light...
-        color: map-get($map-name, textdark);
+        color: map-deep-get($map-name, textdark);
       }
     }
   }
@@ -114,41 +117,34 @@
   }
 
   [type='color'] {
-    @include rem(height, map-get($map-name, height));
-    @include rem(margin, map-get($map-name, margin));
-    @include rem(font-size, map-get($map-name, font-size));
-    width: map-get($map-name, width);
+    @include rem(height, map-deep-get($map-name, height));
+    @include rem(margin, map-deep-get($map-name, margin));
+    @include rem(font-size, map-deep-get($map-name, font-size));
+    width: map-deep-get($map-name, width);
     box-sizing: border-box;
     display: block;
     background-color: transparent;
     outline: none;
     cursor: pointer;
-    @if map-get($map-name, use-borders) == true {
-      border-left: map-get($map-name, border-left);
-      border-right: map-get($map-name, border-right);
-      border-top: map-get($map-name, border-top);
-      border-bottom: map-get($map-name, border-bottom);
+    @if map-deep-get($map-name, use-borders) == true {
+      border-width: map-deep-get($map-name, 'borders', 'border-width');
+      border-style: map-deep-get($map-name, 'borders', 'border-style');
+      border-color: map-deep-get($map-name, 'borders', 'border-color');
     } @else {
       border: 0;
     }
 
     &:focus {
-      @if map-get($map-name, use-borders) == true {
-        border-left: map-get($map-name, border-focus-left);
-        border-right: map-get($map-name, border-focus-right);
-        border-top: map-get($map-name, border-focus-top);
-        border-bottom: map-get($map-name, border-focus-bottom);
+      @if map-deep-get($map-name, use-borders) == true {
+        border-color: map-deep-get($map-name, 'borders', 'border-focus-color');
       } @else {
         border: 0;
       }
     }
 
     &:disabled {
-      @if map-get($map-name, use-borders) == true {
-        border-left: map-get($map-name, border-disabled-left);
-        border-right: map-get($map-name, border-disabled-right);
-        border-top: map-get($map-name, border-disabled-top);
-        border-bottom: map-get($map-name, border-disabled-bottom);
+      @if map-deep-get($map-name, use-borders) == true {
+        border-color: map-deep-get($map-name, 'borders', 'border-disabled-color');
       } @else {
         border: 0;
       }
@@ -165,18 +161,19 @@
 /// }
 /// @author Hash&Salt
 /// @group Forms
-@mixin select($map-name: $select-default) {
+@mixin select($map-name: $input-skin) {
   select {
     // Common
-    @include rem(height, map-get($map-name, height));
-    @include rem(width, map-get($map-name, width));
-    @include rem(margin, map-get($map-name, margin));
-    @include rem(font-size, map-get($map-name, font-size));
-    @include rem(padding, map-get($map-name, padding));
-    background-color: map-get($map-name, background-color);
-    font-family: map-get($map-name, font);
-    border-radius: map-get($map-name, radius);
+    @include rem(height, map-deep-get($map-name, 'height'));
+    @include rem(width, map-deep-get($map-name, 'width'));
+    @include rem(margin, map-deep-get($map-name, 'margin'));
+    @include rem(font-size, map-deep-get($map-name, 'font-size'));
+    @include rem(padding, map-deep-get($map-name, 'padding'));
+    background-color: map-deep-get($map-name, 'bg', 'bg-color');
+    font-family: map-deep-get($map-name, 'font');
+    border-radius: map-deep-get($map-name, 'radius');
     line-height: normal;
+    border-radius: 0;
     -webkit-appearance: none;
     -moz-appearance: none;
 
@@ -188,63 +185,72 @@
       height: auto;
     }
     // Triangle
-    @if map-get($map-name, triangle-color) != transparent {
-      background-size: map-get($map-name, triangle-size);
-      background-position: map-get($map-name, triangle-position);
+    @if map-deep-get($map-name, 'bg', 'bg-color') != transparent {
+      background-size: map-deep-get($map-name, 'selects', 'triangle-size');
+      background-position: map-deep-get($map-name, 'selects', 'triangle-position');
       background-origin: content-box;
       background-repeat: no-repeat;
-      @if lightness(map-get($map-name, background-color)) < 60% {
-        background-image: svg-url-with-replaced-fill(map-get($map-name, arrow), '#000000', map-get($map-name, triangle-color-light));
+      @if lightness(map-deep-get($map-name, 'bg', 'bg-color')) < 60% {
+        background-image: svg-url-with-replaced-fill(map-deep-get($map-name, 'selects', 'arrow'), '#000000', map-deep-get($map-name, 'selects', 'triangle-color-light'));
       } @else {
-        background-image: svg-url-with-replaced-fill(map-get($map-name, arrow), '#000000', map-get($map-name, triangle-color-dark));
+        background-image: svg-url-with-replaced-fill(map-deep-get($map-name, 'selects', 'arrow'), '#000000', map-deep-get($map-name, 'selects', 'triangle-color-dark'));
       }
     }
-    @if map-get($map-name, use-borders) == true {
-      border-left: map-get($map-name, border-left);
-      border-right: map-get($map-name, border-right);
-      border-top: map-get($map-name, border-top);
-      border-bottom: map-get($map-name, border-bottom);
+    @if map-deep-get($map-name, use-borders) == true {
+      border-width: map-deep-get($map-name, 'borders', 'border-width');
+      border-style: map-deep-get($map-name, 'borders', 'border-style');
+      border-color: map-deep-get($map-name, 'borders', 'border-color');
     } @else {
       border: 0;
     }
-    @if lightness(map-get($map-name, background-color)) < 60% {
-      color: map-get($map-name, textlight);
+    @if lightness(map-deep-get($map-name, 'bg', 'bg-color')) < 60% {
+      color: map-deep-get($map-name, textlight);
     } @else {
-      color: map-get($map-name, textdark);
+      color: map-deep-get($map-name, textdark);
     }
 
-    &:focus {
+    &:hover {
       outline: 0;
-      background-color: map-get($map-name, background-color-focus);
-      @if map-get($map-name, use-borders) == true {
-        border-left: map-get($map-name, border-focus-left);
-        border-right: map-get($map-name, border-focus-right);
-        border-top: map-get($map-name, border-focus-top);
-        border-bottom: map-get($map-name, border-focus-bottom);
+      background-color: map-deep-get($map-name, 'bg', 'bg-color-hover');
+      @if map-deep-get($map-name, use-borders) == true {
+        border-color: map-deep-get($map-name, 'borders', 'border-hover-color');
       } @else {
         border: 0;
       }
-      @if lightness(map-get($map-name, background-color-focus)) < 60% {
-        color: map-get($map-name, textlight);
+      @if lightness(map-deep-get($map-name, 'bg', 'bg-color-hover')) < 60% {
+        color: map-deep-get($map-name, textlight);
       } @else {
-        color: map-get($map-name, textdark);
+        color: map-deep-get($map-name, textdark);
+      }
+    }
+
+
+    &:focus {
+      outline: 0;
+      background-color: map-deep-get($map-name, 'bg', 'bg-color-focus');
+      @if map-deep-get($map-name, use-borders) == true {
+        border-color: map-deep-get($map-name, 'borders', 'border-focus-color');
+      } @else {
+        border: 0;
+      }
+      @if lightness(map-deep-get($map-name, 'bg', 'bg-color-focus')) < 60% {
+        color: map-deep-get($map-name, textlight);
+      } @else {
+        color: map-deep-get($map-name, textdark);
       }
     }
 
     &:disabled {
-      background-color: map-get($map-name, background-color-disabled);
-      @if map-get($map-name, use-borders) == true {
-        border-left: map-get($map-name, border-disabled-left);
-        border-right: map-get($map-name, border-disabled-right);
-        border-top: map-get($map-name, border-disabled-top);
-        border-bottom: map-get($map-name, border-disabled-bottom);
+      background-color: map-deep-get($map-name, 'bg', 'bg-color-disabled');
+      @if map-deep-get($map-name, use-borders) == true {
+        border-color: map-deep-get($map-name, 'borders', 'border-disabled-color');
       } @else {
         border: 0;
       }
-      @if lightness(map-get($map-name, background-color-disabled)) < 60% {
-        color: map-get($map-name, textlight);
+      @if lightness(map-deep-get($map-name, 'bg', 'bg-color-disabled')) < 60% {
+        color: map-deep-get($map-name, 'textlight');
       } @else {
-        color: map-get($map-name, textdark);
+        color: map-deep-get($map-name, 'textdark');
       }
     }
   }
@@ -266,20 +272,19 @@
 /// @param {Variable} $map-name [$input-default] - SASS map variable for the select element style.
 /// @author Hash&Salt
 /// @group Forms
-@mixin addons ($map-name: $addon-default) {
+@mixin addons ($map-name: $input-skin) {
   // Addon Wrapper
-  .#{map-get($map-name, wrapper)} {
-    @include rem(margin, map-get($map-name, spacing));
-    @include rem(height, map-get($map-name, height));
+  .#{map-deep-get($map-name, 'addons', 'wrapper')} {
+    @include rem(height, map-deep-get($map-name, 'height'));
     display: table;
     border-collapse: separate;
     width: 100%;
   }
 
-  .#{map-get($map-name, icon)} {
-    @include rem(height, map-get($map-name, height));
-    @include rem(font-size, map-get($map-name, font-size));
-    @include rem(padding, map-get($map-name, padding));
+  .#{map-deep-get($map-name, 'addons', 'icon')} {
+    @include rem(height, map-deep-get($map-name, 'height'));
+    @include rem(font-size, map-deep-get($map-name, 'font-size'));
+    @include rem(padding, map-deep-get($map-name, 'padding'));
     display: table-cell;
     line-height: 1;
     width: auto;
@@ -287,43 +292,47 @@
     white-space: nowrap;
     vertical-align: middle;
     font-weight: $semibold;
-    background-color: map-get($map-name, addon-background-color);
-    @if lightness(map-get($map-name, addon-background-color)) < 60% {
-      color: map-get($map-name, textlight);
+    background-color: map-deep-get($map-name, 'addons', 'addon-background-color');
+    @if lightness(map-deep-get($map-name, 'addons', 'addon-background-color')) < 60% {
+      color: map-deep-get($map-name, 'textlight');
     } @else {
-      color: map-get($map-name, textdark);
+      color: map-deep-get($map-name, 'textdark');
     }
-    @if map-get($map-name, use-borders) == true {
-      border: map-get($map-name, border);
+    @if map-deep-get($map-name, use-borders) == true {
+      border-width: map-deep-get($map-name, 'borders', 'border-width');
+      border-style: map-deep-get($map-name, 'borders', 'border-style');
+      border-color: map-deep-get($map-name, 'borders', 'border-color');
     } @else {
       border: 0;
     }
   }
 
-  .#{map-get($map-name, button)} {
+  .#{map-deep-get($map-name, 'addons', 'button')} {
     display: table-cell;
     white-space: nowrap;
     vertical-align: middle;
+    width: map-deep-get($map-name, 'addons', 'button-width');
 
     [type='reset'],
     [type='submit'],
     span,
     button {
-      @include rem(font-size, map-get($map-name, font-size));
-      @include rem(padding, map-get($map-name, padding));
-      @include rem(height, map-get($map-name, height));
-      @include rem(border-radius, map-get($map-name, radius));
-      background-color: map-get($map-name, addon-background-color);
+      @include rem(height, map-deep-get($map-name, 'height'));
+      @include rem(font-size, map-deep-get($map-name, 'font-size'));
+      @include rem(padding, map-deep-get($map-name, 'padding'));
+      background-color: map-deep-get($map-name, 'addons', 'addon-background-color');
       // Text Color
-      @if lightness(map-get($map-name, addon-background-color)) < 60% {
-        color: map-get($map-name, textlight);
+      @if lightness(map-deep-get($map-name, 'addons', 'addon-background-color')) < 60% {
+        color: map-deep-get($map-name, 'textlight');
       } @else {
-        color: map-get($map-name, textdark);
+        color: map-deep-get($map-name, 'textdark');
       }
-      font-weight: map-get($map-name, font-weight);
-      font-family: map-get($map-name, font);
-      @if map-get($map-name, use-borders) == true {
-        border: map-get($map-name, border);
+      font-weight: map-deep-get($map-name, 'addons', 'font-weight');
+      font-family: map-deep-get($map-name, 'font');
+      @if map-deep-get($map-name, use-borders) == true {
+        border-width: map-deep-get($map-name, 'borders', 'border-width');
+        border-style: map-deep-get($map-name, 'borders', 'border-style');
+        border-color: map-deep-get($map-name, 'borders', 'border-color');
       } @else {
         border: 0;
       }
@@ -334,116 +343,116 @@
       width: 100%;
 
       &:focus {
-        background: map-get($map-name, addon-focus);
+        background: map-deep-get($map-name, 'addons', 'addon-focus');
         outline: none;
         // Text Color
-        @if lightness(map-get($map-name, addon-focus)) < 60% {
-          color: map-get($map-name, textlight);
+        @if lightness(map-deep-get($map-name, 'addons', 'addon-focus')) < 60% {
+          color: map-deep-get($map-name, 'textlight');
         } @else {
-          color: map-get($map-name, textdark);
+          color: map-deep-get($map-name, 'textdark');
         }
       }
 
       &:hover {
-        background: map-get($map-name, addon-hover);
+        background: map-deep-get($map-name, 'addons', 'addon-hover');
         // Text Color
-        @if lightness(map-get($map-name, addon-hover)) < 60% {
-          color: map-get($map-name, textlight);
+        @if lightness(map-deep-get($map-name, 'addons', 'addon-hover')) < 60% {
+          color: map-deep-get($map-name, 'textlight');
         } @else {
-          color: map-get($map-name, textdark);
+          color: map-deep-get($map-name, 'textdark');
         }
       }
 
       &:active {
-        background: map-get($map-name, addon-active);
+        background: map-deep-get($map-name, 'addons', 'addon-active');
         // Text Color
-        @if lightness(map-get($map-name, addon-active)) < 60% {
-          color: map-get($map-name, textlight);
+        @if lightness(map-deep-get($map-name, 'addons', 'addon-active')) < 60% {
+          color: map-deep-get($map-name, 'textlight');
         } @else {
-          color: map-get($map-name, textdark);
+          color: map-deep-get($map-name, 'textdark');
         }
       }
 
       &:disabled {
-        background: map-get($map-name, addon-disabled);
-        @if map-get($map-name, use-borders) == true {
-          border: map-get($map-name, border-disabled);
+        background: map-deep-get($map-name, 'addons', 'addon-disabled');
+        @if map-deep-get($map-name, use-borders) == true {
+          border-color: map-deep-get($map-name, 'borders', 'border-disabled-color');
         } @else {
           border: 0;
         }
-        @if lightness(map-get($map-name, addon-disabled)) < 60% {
-          // if background is dark...
-          color: map-get($map-name, textlight);
+        @if lightness(map-deep-get($map-name, 'addons', 'addon-disabled')) < 60% {
+          color: map-deep-get($map-name, 'textlight');
         } @else {
-          // if background is light...
-          color: map-get($map-name, textdark);
+          color: map-deep-get($map-name, 'textdark');
         }
       }
     }
 
     div,
     span {
-      @include rem(line-height, map-get($map-name, line-height));
+      @include rem(line-height, map-deep-get($map-name, line-height));
       cursor: auto;
       display: block;
     }
   }
   // Inputs inside Addons
+  select.#{map-deep-get($map-name, 'addons', 'field')} {
+    margin: 0;
+    display: table-cell;
+    position: relative;
+    z-index: 2;
+    float: left;
+  }
+
   @include inputs-all {
-    &.#{map-get($map-name, field)} {
+    &.#{map-deep-get($map-name, 'addons', 'field')} {
       margin: 0;
       display: table-cell;
       position: relative;
       z-index: 2;
       width: 100%;
-      float: left;
-      @if map-get($map-name, use-borders) == true {
-        border: map-get($map-name, border);
+      @if map-deep-get($map-name, use-borders) == true {
+        border-width: map-deep-get($map-name, 'borders', 'border-width');
+        border-style: map-deep-get($map-name, 'borders', 'border-style');
+        border-color: map-deep-get($map-name, 'borders', 'border-color');
       } @else {
         border: 0;
       }
 
-      &:focus {
-        @if map-get($map-name, use-borders) == true {
-          border: map-get($map-name, border-focus);
+      &:hover {
+        @if map-deep-get($map-name, use-borders) == true {
+          border-color: map-deep-get($map-name, 'borders', 'border-hover-color');
         } @else {
           border: 0;
         }
-        background-color: map-get($map-name, input-focus);
-        color: map-get($map-name, input-focus-color);
+        background-color: map-deep-get($map-name, input-hover);
       }
-    }
-  }
-  @include select(map-get($map-name, selectskin));
 
-  .#{map-get($map-name, field)} {
-    margin: 0;
-    display: table-cell;
-    position: relative;
-    z-index: 2;
-    width: 100%;
-    float: left;
-    @if map-get($map-name, use-borders) == true {
-      border: map-get($map-name, border);
-    } @else {
-      border: 0;
-    }
-
-    &:focus {
-      @if map-get($map-name, use-borders) == true {
-        border: map-get($map-name, border-focus);
-      } @else {
-        border: 0;
+      &:focus {
+        @if map-deep-get($map-name, use-borders) == true {
+          border-color: map-deep-get($map-name, 'borders', 'border-focus-color');
+        } @else {
+          border: 0;
+        }
+        background-color: map-deep-get($map-name, input-focus);
       }
-      color: map-get($map-name, input-focus-color);
+
+      &:disabled {
+        @if map-deep-get($map-name, use-borders) == true {
+          border-color: map-deep-get($map-name, 'borders', 'border-disabled-color');
+        } @else {
+          border: 0;
+        }
+        background-color: map-deep-get($map-name, 'bg', 'bg-color-disabled');
+      }
     }
   }
   // Kill Borders next to buttons
-  @if map-get($map-name, use-borders) == true {
-    .#{map-get($map-name, both)},
-    .#{map-get($map-name, left)},
-    .#{map-get($map-name, right)} {
-      .#{map-get($map-name, button)}:first-child {
+  @if map-deep-get($map-name, use-borders) == true {
+    .#{map-deep-get($map-name, 'addons', 'both')},
+    .#{map-deep-get($map-name, 'addons', 'left')},
+    .#{map-deep-get($map-name, 'addons', 'right')} {
+      .#{map-deep-get($map-name, 'addons', 'button')}:first-child {
         [type='reset'],
         [type='submit'],
         span,
@@ -453,7 +462,7 @@
         }
       }
 
-      .#{map-get($map-name, button)}:last-child {
+      .#{map-deep-get($map-name, 'addons', 'button')}:last-child {
         [type='reset'],
         [type='submit'],
         span,
@@ -463,11 +472,11 @@
         }
       }
 
-      .#{map-get($map-name, icon)}:first-child {
+      .#{map-deep-get($map-name, 'addons', 'icon')}:first-child {
         border-right: 0;
       }
 
-      .#{map-get($map-name, icon)}:last-child {
+      .#{map-deep-get($map-name, 'addons', 'icon')}:last-child {
         border-left: 0;
       }
     }
@@ -475,26 +484,28 @@
 }
 // Custom radios
 // ======================================================================
-@mixin checkradio($map-name: $checkradio-default) {
+@mixin checkradio($map-name: $input-skin) {
   label {
-    @include rem(padding-left, map-get($map-name, label-h-align));
-    @include rem(margin-bottom, map-get($map-name, spacing));
+    @include rem(padding-left, map-deep-get($map-name, 'radios', 'label-h-align'));
+    @include rem(margin-bottom, map-deep-get($map-name, 'radios', 'spacing'));
     display: inline-block;
     cursor: pointer;
     position: relative;
 
     &::before {
-      @include rem(width, map-get($map-name, width));
-      @include rem(height, map-get($map-name, height));
-      @include rem(bottom, map-get($map-name, input-v-align));
+      @include rem(width, map-deep-get($map-name, 'radios', 'width'));
+      @include rem(height, map-deep-get($map-name, 'radios', 'height'));
+      @include rem(bottom, map-deep-get($map-name, 'radios', 'input-v-align'));
       content: '';
-      color: map-get($map-name, selected-color);
+      color: map-deep-get($map-name, 'radios', 'selected-color');
       display: inline-block;
       position: absolute;
       left: 0;
-      background-color: map-get($map-name, background-color);
-      @if map-get($map-name, use-borders) == true {
-        border: map-get($map-name, border);
+      background-color: map-deep-get($map-name, 'bg', 'bg-color');
+      @if map-deep-get($map-name, use-borders) == true {
+        border-width: map-deep-get($map-name, 'borders', 'border-width');
+        border-style: map-deep-get($map-name, 'borders', 'border-style');
+        border-color: map-deep-get($map-name, 'borders', 'border-color');
       } @else {
         border: 0;
       }
@@ -507,7 +518,7 @@
     left: -99999px;
 
     + label {
-      @include rem(margin-bottom, map-get($map-name, spacing));
+      @include rem(margin-bottom, map-deep-get($map-name, 'radios', 'spacing'));
       margin-left: 0;
     }
     // checked
@@ -515,12 +526,13 @@
       + label {
         &::before {
           content: '';
-          background-image: svg-url-with-replaced-fill(map-get($map-name, checkicon), '#000000', map-get($map-name, selected-color));
-          background-size: map-get($map-name, checkicon-size);
+          background-image: svg-url-with-replaced-fill(map-deep-get($map-name, 'radios', 'checkicon'), '#000000', map-deep-get($map-name, 'radios', 'selected-color'));
+          background-size: map-deep-get($map-name, 'radios', 'checkicon-size');
           background-repeat: no-repeat;
           background-position: center center;
-          @if map-get($map-name, use-borders) == true {
-            border: map-get($map-name, border-checked);
+          @if map-deep-get($map-name, use-borders) == true {
+
+            border-color: map-deep-get($map-name, 'radios', 'border-checked-color');
           } @else {
             border: 0;
           }
@@ -531,26 +543,26 @@
     &:focus {
       + label {
         &::before {
-          @if map-get($map-name, use-borders) == true {
-            border: map-get($map-name, border-focus);
+          @if map-deep-get($map-name, use-borders) == true {
+            border-color: map-deep-get($map-name, 'radios', 'border-focus-color');
           } @else {
             border: 0;
           }
-          color: map-get($map-name, selected-color);
-          background-color: map-get($map-name, background-color-focus);
+          color: map-deep-get($map-name, 'radios', selected-color);
+          background-color: map-deep-get($map-name, 'bg', 'bg-color-focus');
         }
       }
       // focus + checked
       &:checked {
         + label {
           &::before {
-            @if map-get($map-name, use-borders) == true {
-              border: map-get($map-name, border-focus-checked);
+            @if map-deep-get($map-name, use-borders) == true {
+              border-color: map-deep-get($map-name, 'radios', 'border-checked-color');
             } @else {
               border: 0;
             }
-            color: map-get($map-name, selected-color);
-            background-color: map-get($map-name, background-color-focus-checked);
+            color: map-deep-get($map-name, 'radios', selected-color);
+            background-color: map-deep-get($map-name, 'bg', 'bg-color-focus');
           }
         }
       }
@@ -559,10 +571,10 @@
     &:hover {
       + label {
         &::before {
-          color: map-get($map-name, selected-color);
-          background-color: map-get($map-name, background-color-hover);
-          @if map-get($map-name, use-borders) == true {
-            border: map-get($map-name, border-hover);
+          color: map-deep-get($map-name, 'radios', 'selected-color');
+          background-color: map-deep-get($map-name, 'bg', 'bg-color-hover');
+          @if map-deep-get($map-name, use-borders) == true {
+            border-color: map-deep-get($map-name, 'radios', 'border-hover-color');
           } @else {
             border: 0;
           }
@@ -572,10 +584,10 @@
       &:checked {
         + label {
           &::before {
-            color: map-get($map-name, selected-color);
+            color: map-deep-get($map-name, 'radios', 'selected-color');
             background-color: map-get($map-name, background-color-hover-checked);
-            @if map-get($map-name, use-borders) == true {
-              border: map-get($map-name, border-hover-checked);
+            @if map-deep-get($map-name, use-borders) == true {
+              border-color: map-deep-get($map-name, 'radios', 'border-hover-checked-color');
             } @else {
               border: 0;
             }
@@ -588,7 +600,7 @@
   [type='radio'] {
     + label {
       &::before {
-        border-radius: map-get($map-name, radio-radius);
+        border-radius: map-deep-get($map-name, 'radios', 'radio-radius');
       }
     }
 
@@ -596,8 +608,8 @@
       + label {
         &::before {
           content: '';
-          background: svg-url-with-replaced-fill(map-get($map-name, radioicon), '#000000', map-get($map-name, selected-color));
-          background-size: map-get($map-name, radioicon-size);
+          background-image: svg-url-with-replaced-fill(map-deep-get($map-name, 'radios', 'radioicon'), '#000000', map-deep-get($map-name, 'radios', 'selected-color'));
+          background-size: map-deep-get($map-name, 'radios', 'radioicon-size');
           background-repeat: no-repeat;
           background-position: center center;
         }
@@ -626,11 +638,11 @@
     @content;
   }
 }
-/// A quick way to add all of the form mixins (baseforn, inputs, addons, select, validation) in one go based on settings in the `$form-skin-default` SASS map
+/// A quick way to add all of the form mixins (baseform, inputs, addons, select, validation) in one go based on settings in the `$form-skin-default` SASS map
 /// @param  {Variable} $map-name [$form-skin-default] [Config variable to use for forms]
 /// @author Hash&Salt
 /// @group Forms
-@mixin form-complete($map-name: $form-skin-default) {
+@mixin form-complete($map-name: $form-skin) {
   @if map-deep-get($map-name, 'components', 'baseform') == true {
     @include form;
   }

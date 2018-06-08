@@ -17,7 +17,7 @@
 /// @param  {[type]} $map-name [$form-skin-default] [variable used for the forms skin]
 /// @author Hash&Salt
 /// @group Forms
-@mixin form($map-name: $form-skin-default) {
+@mixin form($map-name: $form-skin) {
   @include rem(margin, map-deep-get($map-name, 'form', 'margin'));
   @include rem(padding, map-deep-get($map-name, 'form', 'padding'));
 

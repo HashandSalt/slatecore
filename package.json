@@ -1,6 +1,6 @@
 {
   "name": "slatecore",
-  "version": "5.3.1",
+  "version": "6.0.0",
   "description": "Slate is a responsive, modern web framework written in Sass.",
   "main": "slate/_slate.scss",
   "repository": {

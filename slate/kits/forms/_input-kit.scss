@@ -67,10 +67,10 @@
     background-color: map-deep-get($map-name, 'bg', 'bg-color');
     @if lightness(map-deep-get($map-name, 'bg', 'bg-color')) < 60% {
       // if background is dark...
-      color: map-deep-get($map-name, textlight);
+      color: map-deep-get($map-name, 'textlight');
     } @else {
       // if background is light...
-      color: map-deep-get($map-name, textdark);
+      color: map-deep-get($map-name, 'textdark');
     }
 
     &:hover {
@@ -80,6 +80,13 @@
         border-color: map-deep-get($map-name, 'borders', 'border-hover-color');
       } @else {
         border: 0;
+      }
+      @if lightness(map-deep-get($map-name, 'bg', 'bg-color-hover')) < 60% {
+        // if background is dark...
+        color: map-deep-get($map-name, 'textlight');
+      } @else {
+        // if background is light...
+        color: map-deep-get($map-name, 'textdark');
       }
     }
 
@@ -91,6 +98,13 @@
         border-color: map-deep-get($map-name, 'borders', 'border-focus-color');
       } @else {
         border: 0;
+      }
+      @if lightness(map-deep-get($map-name, 'bg', 'bg-color-focus')) < 60% {
+        // if background is dark...
+        color: map-deep-get($map-name, 'textlight');
+      } @else {
+        // if background is light...
+        color: map-deep-get($map-name, 'textdark');
       }
     }
 
@@ -104,10 +118,10 @@
       }
       @if lightness(map-deep-get($map-name, 'bg', 'bg-color-disabled')) < 60% {
         // if background is dark...
-        color: map-deep-get($map-name, textlight);
+        color: map-deep-get($map-name, 'textlight');
       } @else {
         // if background is light...
-        color: map-deep-get($map-name, textdark);
+        color: map-deep-get($map-name, 'textdark');
       }
     }
   }
@@ -204,9 +218,9 @@
       border: 0;
     }
     @if lightness(map-deep-get($map-name, 'bg', 'bg-color')) < 60% {
-      color: map-deep-get($map-name, textlight);
+      color: map-deep-get($map-name, 'textlight');
     } @else {
-      color: map-deep-get($map-name, textdark);
+      color: map-deep-get($map-name, 'textdark');
     }
 
     &:hover {
@@ -218,9 +232,9 @@
         border: 0;
       }
       @if lightness(map-deep-get($map-name, 'bg', 'bg-color-hover')) < 60% {
-        color: map-deep-get($map-name, textlight);
+        color: map-deep-get($map-name, 'textlight');
       } @else {
-        color: map-deep-get($map-name, textdark);
+        color: map-deep-get($map-name, 'textdark');
       }
     }
 
@@ -234,9 +248,9 @@
         border: 0;
       }
       @if lightness(map-deep-get($map-name, 'bg', 'bg-color-focus')) < 60% {
-        color: map-deep-get($map-name, textlight);
+        color: map-deep-get($map-name, 'textlight');
       } @else {
-        color: map-deep-get($map-name, textdark);
+        color: map-deep-get($map-name, 'textdark');
       }
     }
 
@@ -411,6 +425,7 @@
       position: relative;
       z-index: 2;
       width: 100%;
+      background-color: map-deep-get($map-name, 'bg', 'bg-color');
       @if map-deep-get($map-name, use-borders) == true {
         border-width: map-deep-get($map-name, 'borders', 'border-width');
         border-style: map-deep-get($map-name, 'borders', 'border-style');
@@ -419,13 +434,24 @@
         border: 0;
       }
 
+      @if lightness(map-deep-get($map-name, 'bg', 'bg-color')) < 60% {
+        color: map-deep-get($map-name, 'textlight');
+      } @else {
+        color: map-deep-get($map-name, 'textdark');
+      }
+
       &:hover {
         @if map-deep-get($map-name, use-borders) == true {
           border-color: map-deep-get($map-name, 'borders', 'border-hover-color');
         } @else {
           border: 0;
         }
-        background-color: map-deep-get($map-name, input-hover);
+        background-color: map-deep-get($map-name, 'bg', 'bg-color-hover');
+        @if lightness(map-deep-get($map-name, 'bg', 'bg-color-hover')) < 60% {
+          color: map-deep-get($map-name, 'textlight');
+        } @else {
+          color: map-deep-get($map-name, 'textdark');
+        }
       }
 
       &:focus {
@@ -434,7 +460,12 @@
         } @else {
           border: 0;
         }
-        background-color: map-deep-get($map-name, input-focus);
+        background-color: map-deep-get($map-name, 'bg', 'bg-color-focus');
+        @if lightness(map-deep-get($map-name, 'bg', 'bg-color-focus')) < 60% {
+          color: map-deep-get($map-name, 'textlight');
+        } @else {
+          color: map-deep-get($map-name, 'textdark');
+        }
       }
 
       &:disabled {
@@ -444,6 +475,11 @@
           border: 0;
         }
         background-color: map-deep-get($map-name, 'bg', 'bg-color-disabled');
+        @if lightness(map-deep-get($map-name, 'bg', 'bg-color-disabled')) < 60% {
+          color: map-deep-get($map-name, 'textlight');
+        } @else {
+          color: map-deep-get($map-name, 'textdark');
+        }
       }
     }
   }

@@ -304,7 +304,7 @@
     width: auto;
     text-align: center;
     white-space: nowrap;
-    vertical-align: middle;
+    vertical-align: top;
     font-weight: $semibold;
     background-color: map-deep-get($map-name, 'addons', 'addon-background-color');
     @if lightness(map-deep-get($map-name, 'addons', 'addon-background-color')) < 60% {
@@ -324,7 +324,7 @@
   .#{map-deep-get($map-name, 'addons', 'button')} {
     display: table-cell;
     white-space: nowrap;
-    vertical-align: middle;
+    vertical-align: top;
     width: map-deep-get($map-name, 'addons', 'button-width');
 
     [type='reset'],

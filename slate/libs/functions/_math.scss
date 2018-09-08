@@ -58,3 +58,11 @@
     @return rem-convert(rem, $values...);
   }
 }
+
+
+// To Percentage
+// ======================================================================
+
+@function to-percentage($input) {
+    @return $input * 1%;
+}
